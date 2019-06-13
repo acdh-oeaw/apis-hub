@@ -1,0 +1,25 @@
+.Button {
+  align-items: center;
+  border: none;
+  background-color: var(--color-primary);
+  cursor: pointer;
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 700;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.Button:hover {
+  background-color: var(--color-tertiary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.Button:disabled {
+  background-color: var(--color-grey);
+  color: var(--color-black);
+  cursor: unset;
+  pointer-events: none;
+}

@@ -1,0 +1,28 @@
+.Popover {
+  position: relative;
+}
+
+.PopoverTrigger {
+}
+
+.PopoverContent {
+  background-color: var(--color-dark-grey);
+  bottom: calc(100% + 3rem);
+  display: flex;
+  flex-direction: column;
+  left: -5rem;
+  padding: 2rem;
+  position: absolute;
+  width: 20rem;
+}
+
+.PopoverContent::after {
+  content: '';
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--color-dark-grey);
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 0.75rem);
+  transform: translateY(-50%) rotate(45deg);
+}

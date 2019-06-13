@@ -1,0 +1,16 @@
+.Label {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.Select {
+  background: none;
+  background-image: none;
+  border: none;
+  border-bottom: 2px solid var(--color-primary);
+  flex: 1;
+  position: relative;
+  width: 100%;
+  -webkit-appearance: none;
+}

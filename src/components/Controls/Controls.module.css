@@ -1,0 +1,76 @@
+.Controls {
+  align-items: center;
+  background-color: var(--color-dark-grey);
+  display: flex;
+  flex: 0 0 8rem;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.Button {
+  flex: 0 1 20rem;
+  margin: 0 1rem;
+}
+
+.Statistics {
+  align-items: center;
+  display: flex;
+  flex: 0 1 26rem;
+  height: 100%;
+  margin: 0 1rem;
+}
+.StatisticsItem {
+  color: var(--color-light-grey);
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  margin: 0 1rem;
+  text-transform: uppercase;
+}
+.StatisticsNumber {
+  font-size: 3rem;
+  text-align: right;
+}
+
+.SelectMode {
+  flex: 0 1 10rem;
+  height: 6rem;
+  margin: 0 3rem;
+  padding: 0.5rem 0;
+}
+.SelectMode span,
+.SelectMode select {
+  color: var(--color-light-grey);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.SelectMode select {
+  margin-bottom: 0.6rem;
+}
+
+.Highlight {
+  flex: 1;
+  height: 100%;
+  padding: 1rem;
+}
+.HighlightSearch {
+  height: 100%;
+  width: 100%;
+}
+
+.Toggle {
+  align-items: center;
+  color: var(--color-lightest-grey);
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.Toggle span {
+  margin: 0 0.5rem;
+}
+
+.PopoverButton {
+  margin-top: 1rem;
+}

@@ -1,0 +1,37 @@
+.Panel {
+  background: var(--color-dark-grey);
+  color: var(--color-white);
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  transition: transform 0.4s ease;
+  width: 34rem;
+  z-index: 1;
+}
+
+.PanelHeader {
+  font-size: 1.4rem;
+  margin: 2rem;
+  position: relative;
+}
+
+.PanelContent {
+  font-size: 1.2rem;
+  margin: 2rem;
+}
+
+.PanelCloseButton {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 2rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.PanelCloseButton:hover {
+  cursor: pointer;
+}

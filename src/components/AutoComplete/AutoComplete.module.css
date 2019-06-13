@@ -1,0 +1,28 @@
+.AutoComplete {
+  display: flex;
+  position: relative;
+}
+
+.Input {
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--color-tertiary);
+  width: 100%;
+}
+
+.Items {
+  list-style: none;
+  max-height: 20rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 3;
+}
+
+.Item {
+  font-size: 1.4rem;
+  line-height: 2;
+  padding: 0.5rem;
+}

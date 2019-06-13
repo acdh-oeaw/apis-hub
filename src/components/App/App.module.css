@@ -1,0 +1,16 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 70rem;
+}
+
+.Header {
+  flex: 0 0 8rem;
+}
+
+.Main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}

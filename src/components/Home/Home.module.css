@@ -1,0 +1,9 @@
+.Home {
+  display: flex;
+  flex: 1;
+}
+
+.Message {
+  font-size: 4rem;
+  font-weight: 700;
+}

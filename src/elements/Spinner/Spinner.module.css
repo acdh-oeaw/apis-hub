@@ -1,0 +1,12 @@
+.Spinner {
+  align-items: center;
+  display: inline-flex;
+}
+
+.Spinner div {
+  display: inline !important;
+}
+
+.Spinner div svg {
+  display: inline !important;
+}

@@ -1,0 +1,11 @@
+.Message {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.Link {
+  border-bottom: 2px solid currentColor;
+  color: currentColor;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}

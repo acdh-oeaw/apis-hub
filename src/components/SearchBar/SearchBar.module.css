@@ -1,0 +1,17 @@
+.SearchBar {
+  flex: 0 0 6rem;
+}
+
+.SearchForm {
+  display: flex;
+  height: 100%;
+}
+
+.Select,
+.AutoComplete {
+  flex: 1;
+}
+
+.SubmitButton {
+  flex: 0 0 12rem;
+}

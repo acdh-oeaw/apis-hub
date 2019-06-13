@@ -1,0 +1,6 @@
+.Graph {
+  background-color: var(--color-lightest-grey);
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}

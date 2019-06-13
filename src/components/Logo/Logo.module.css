@@ -1,0 +1,43 @@
+.Logo {
+  align-items: center;
+  display: flex;
+}
+
+.Hexagons {
+  display: flex;
+  transform: scale(0.6);
+}
+
+.Hexagon {
+  background-color: currentColor;
+  height: 34.64px;
+  margin: 17.32px 0;
+  position: relative;
+  width: 60px;
+}
+
+.Hexagon:before,
+.Hexagon:after {
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  content: '';
+  position: absolute;
+  width: 0;
+}
+
+.Hexagon:before {
+  border-bottom: 17.32px solid currentColor;
+  bottom: 100%;
+}
+
+.Hexagon:after {
+  border-top: 17.32px solid currentColor;
+  top: 100%;
+  width: 0;
+}
+
+.Name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 1rem;
+}

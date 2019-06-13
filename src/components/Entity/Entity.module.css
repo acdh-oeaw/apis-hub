@@ -1,0 +1,63 @@
+.Entity {
+  border-bottom: 1px solid var(--color-grey);
+  line-height: 1.4;
+  padding: 2rem 0;
+}
+
+.Entity:last-child {
+  border-bottom: none;
+}
+
+.Entity div {
+  margin: 1rem 0;
+}
+
+.EntityHeader {
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding-right: 3.6rem;
+  position: relative;
+}
+
+.RemoveButton {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-white);
+  display: flex;
+  font-size: 1.6rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.RemoveButton:hover {
+  cursor: pointer;
+}
+
+.CenterButton {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: left;
+}
+.CenterButton:hover {
+  cursor: pointer;
+}
+
+.EntityLink {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.EntityLink:hover {
+  border-bottom: 1px solid currentColor;
+}
+
+.RelationsButton {
+  display: inline-flex;
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+}
