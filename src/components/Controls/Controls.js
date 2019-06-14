@@ -11,7 +11,7 @@ import styles from './Controls.module.css'
 import classNames from '../../utils/class-names'
 
 const dagModes = [
-  ['none', 'default'],
+  [null, 'default'],
   ['td', 'top-down'],
   ['bu', 'bottom-up'],
   ['lr', 'left-right'],
@@ -62,8 +62,11 @@ const Controls = ({
         <Select
           className={styles.SelectMode}
           label="DAG Mode"
-          onSelect={event => onSelectDagMode(event.target.value)}
+          onSelect={event => {
+            onSelectDagMode(event.target.value)
+          }}
           options={dagModes}
+          selected={dagMode}
         />
       </div>
 
@@ -75,7 +78,10 @@ const Controls = ({
 
       <Button
         className={styles.PopoverButton}
-        onClick={() => forceGraph.refresh()}
+        onClick={() => {
+          console.log(forceGraph)
+          forceGraph.refresh()
+        }}
       >
         Refresh
       </Button>
@@ -83,6 +89,7 @@ const Controls = ({
       <Button
         className={styles.PopoverButton}
         onClick={() => {
+          console.log(graph)
           // TODO: Better would if we didn't have to invalidate the whole relations cache
           // i.e. save something like `idsInGraph`
           dispatch({ type: 'CLEAR_RELATIONS' })

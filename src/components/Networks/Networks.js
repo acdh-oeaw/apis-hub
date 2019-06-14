@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import { useApiDispatch } from '../../contexts/api'
 
@@ -23,8 +23,18 @@ const Networks = () => {
   const [isRightPanelOpen, setIsRightPanelOpen] = useState(false)
 
   const forceGraphRef = useRef()
+  const forceGraphRef3D = useRef()
   // FIXME: useGraph()
   const graphRef = useRef()
+  const graphRef3D = useRef()
+
+  // FIXME: AWFUL!
+  const [currentGraph, setCurrentGraph] = useState([graphRef, forceGraphRef])
+  useEffect(() => {
+    is3D
+      ? setCurrentGraph([graphRef3D, forceGraphRef3D])
+      : setCurrentGraph([graphRef, forceGraphRef])
+  }, [is3D])
 
   const centerNode3D = node => {
     const distance = 100
@@ -48,6 +58,8 @@ const Networks = () => {
         dagMode={dagMode}
         forceGraphRef={forceGraphRef}
         graphRef={graphRef}
+        forceGraphRef3D={forceGraphRef3D}
+        graphRef3D={graphRef3D}
         highlightedNodeIds={highlightedNodeIds}
         is3D={is3D}
         isLeftPanelOpen={isLeftPanelOpen}
@@ -70,8 +82,8 @@ const Networks = () => {
       <Controls
         dagMode={dagMode}
         dispatch={dispatch}
-        forceGraph={forceGraphRef.current}
-        graph={graphRef.current}
+        forceGraph={currentGraph[1].current}
+        graph={currentGraph[0].current}
         is3D={is3D}
         // isGraphLoading={isGraphLoading}
         isLeftPanelOpen={isLeftPanelOpen}

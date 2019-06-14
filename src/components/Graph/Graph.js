@@ -16,6 +16,8 @@ const Graph = ({
   dagMode,
   forceGraphRef,
   graphRef,
+  forceGraphRef3D,
+  graphRef3D,
   highlightedNodeIds,
   is3D,
   isLeftPanelOpen,
@@ -62,8 +64,8 @@ const Graph = ({
           <Visualization3D
             centerNode={centerNode}
             dagMode={dagMode}
-            forceGraphRef={forceGraphRef}
-            graphRef={graphRef}
+            forceGraphRef={forceGraphRef3D}
+            graphRef={graphRef3D}
             highlightedNodeIds={highlightedNodeIds}
             // is3D={is3D}
             // onFinishLoading={onFinishLoading}
