@@ -1,3 +1,5 @@
+const { DEFAULT_LIMIT } = require(`../constants`)
+
 const createUrl = ({ path, basePath, query }) => {
   const url = new URL(path.toLowerCase(), basePath)
 
@@ -61,8 +63,8 @@ export const createApi = ({ basePath, authToken }) => {
       return request({ path, basePath, query, options })
     },
 
-    getRelations(from, to) {
-      const query = { format: 'json+net', limit: 1000 }
+    getRelations(from, to, offset = 0) {
+      const query = { format: 'json+net', limit: DEFAULT_LIMIT, offset }
       const endpoint = handleReverse(from, to).join('')
       const path = `/apis/api/relations/${endpoint}/`
       return request({ path, basePath, query, options })

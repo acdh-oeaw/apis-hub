@@ -4,6 +4,7 @@ import { useApiDispatch } from '../../contexts/api'
 
 import Controls from '../Controls/Controls'
 import Graph from '../Graph/Graph'
+import Notifications from '../Notifications/Notifications'
 import SearchBar from '../SearchBar/SearchBar'
 
 import styles from './Networks.module.css'
@@ -53,6 +54,7 @@ const Networks = () => {
   return (
     <main className={styles.Networks}>
       <SearchBar />
+      <Notifications />
       <Graph
         centerNode={is3D ? centerNode3D : centerNode}
         dagMode={dagMode}

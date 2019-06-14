@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react'
 
 import { createApi, entities, handleReverse } from '../utils/api'
-import { BASE_PATH, AUTH_TOKEN } from '../constants'
+import { BASE_PATH, AUTH_TOKEN, DEFAULT_LIMIT } from '../constants'
 
 // TODO: Get this from a new `apisInstance` context, or pass into Provider
 const Api = createApi({ basePath: BASE_PATH, authToken: AUTH_TOKEN })
@@ -26,6 +26,9 @@ export const actions = {
   SET_RELATIONS: 'SET_RELATIONS',
   SET_RELATIONS_PENDING: 'SET_RELATIONS_PENDING',
   SET_RELATIONS_ERROR: 'SET_RELATIONS_ERROR',
+  SET_POST_LOAD_RELATIONS_NOTIFICATION: 'SET_POST_LOAD_RELATIONS_NOTIFICATION',
+  CLEAR_POST_LOAD_RELATIONS_NOTIFICATION:
+    'CLEAR_POST_LOAD_RELATIONS_NOTIFICATION',
 
   SET_RELATION_TYPES: 'SET_RELATION_TYPES',
   SET_RELATION_TYPES_PENDING: 'SET_RELATION_TYPES_PENDING',
@@ -309,6 +312,36 @@ const apiReducer = (state, action) => {
         },
       }
     }
+    case actions.SET_POST_LOAD_RELATIONS_NOTIFICATION: {
+      return {
+        ...state,
+        relations: {
+          ...state.relations,
+          meta: {
+            ...state.relations.meta,
+            notification: {
+              ...action.payload,
+              offset:
+                ((state.relations.meta.notification &&
+                  state.relations.meta.notification.offset) ||
+                  0) + DEFAULT_LIMIT,
+            },
+          },
+        },
+      }
+    }
+    case actions.CLEAR_POST_LOAD_RELATIONS_NOTIFICATION: {
+      return {
+        ...state,
+        relations: {
+          ...state.relations,
+          meta: {
+            ...state.relations.meta,
+            notification: null,
+          },
+        },
+      }
+    }
 
     case actions.SET_RELATION_TYPES: {
       const { results } = action.payload
@@ -497,17 +530,29 @@ export const fetchEntityDetails = async (dispatch, id) => {
   }
 }
 
-export const fetchRelations = async (dispatch, from, to) => {
+export const fetchRelations = async (dispatch, from, to, offset) => {
   dispatch({ type: actions.SET_RELATIONS_PENDING })
 
   try {
-    const data = await Api.getRelations(from, to)
+    const data = await Api.getRelations(from, to, offset)
     const [source, target] = handleReverse(from, to)
     dispatch({
       type: actions.SET_RELATIONS,
       payload: data,
       meta: { source, target },
     })
+
+    // FIXME: PLEASE NO!
+    if (Array.isArray(data.results) && data.results.length >= DEFAULT_LIMIT) {
+      dispatch({
+        type: actions.SET_POST_LOAD_RELATIONS_NOTIFICATION,
+        payload: {
+          from,
+          to,
+          message: `You tried to load more than ${DEFAULT_LIMIT} relations. This might slow things down. Do you want to continue loading?`,
+        },
+      })
+    }
   } catch (error) {
     dispatch({ type: actions.SET_RELATIONS_ERROR, payload: error, error: true })
   }

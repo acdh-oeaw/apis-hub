@@ -1,0 +1,14 @@
+.Notification {
+  align-items: center;
+  background-color: var(--color-secondary);
+  display: flex;
+  font-size: 1.6rem;
+  height: 6rem;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.Button {
+  margin: 0 1rem;
+}
