@@ -50,7 +50,7 @@ class ProjectList extends React.Component {
               <h2>{item.subtitle}</h2>
               <a href={item.app_url}>
                 <img
-                  src={item.img}
+                  src={item.title_img}
                   alt={item.subtitle}
                   className={styles.ImgCenter}
                 />
