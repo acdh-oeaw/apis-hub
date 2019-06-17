@@ -530,11 +530,26 @@ export const fetchEntityDetails = async (dispatch, id) => {
   }
 }
 
-export const fetchRelations = async (dispatch, from, to, offset) => {
+export const fetchRelations = async ({
+  dispatch,
+  from,
+  to,
+  offset,
+  relationType,
+  sourceEntity,
+  targetEntity,
+}) => {
   dispatch({ type: actions.SET_RELATIONS_PENDING })
 
   try {
-    const data = await Api.getRelations(from, to, offset)
+    const data = await Api.getRelations(
+      from,
+      to,
+      relationType,
+      sourceEntity,
+      targetEntity,
+      offset
+    )
     const [source, target] = handleReverse(from, to)
     dispatch({
       type: actions.SET_RELATIONS,
@@ -549,6 +564,9 @@ export const fetchRelations = async (dispatch, from, to, offset) => {
         payload: {
           from,
           to,
+          relationType,
+          sourceEntity,
+          targetEntity,
           message: `You tried to load more than ${DEFAULT_LIMIT} relations. This might slow things down. Do you want to continue loading?`,
         },
       })

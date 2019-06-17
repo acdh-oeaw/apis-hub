@@ -79,7 +79,6 @@ const Controls = ({
       <Button
         className={styles.PopoverButton}
         onClick={() => {
-          console.log(forceGraph)
           forceGraph.refresh()
         }}
       >
@@ -89,7 +88,6 @@ const Controls = ({
       <Button
         className={styles.PopoverButton}
         onClick={() => {
-          console.log(graph)
           // TODO: Better would if we didn't have to invalidate the whole relations cache
           // i.e. save something like `idsInGraph`
           dispatch({ type: 'CLEAR_RELATIONS' })

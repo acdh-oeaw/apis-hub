@@ -21,8 +21,11 @@ import classNames from '../../utils/class-names'
 
 const SearchBar = ({ className, ...rest }) => {
   const [source, setSource] = useState(entities[0])
-  const [relationType, setRelationType] = useState()
   const [target, setTarget] = useState(entities[0])
+
+  const [relationType, setRelationType] = useState()
+  const [sourceEntity, setSourceEntity] = useState()
+  const [targetEntity, setTargetEntity] = useState()
 
   const [
     {
@@ -46,7 +49,10 @@ const SearchBar = ({ className, ...rest }) => {
   const reverse = relations[source][target]
   const relationTypeNames = storedRelationTypes
     ? storedRelationTypes
-        .map(id => relationTypesById[id][reverse ? 'name_reverse' : 'name'])
+        .map(id => ({
+          id,
+          name: relationTypesById[id][reverse ? 'name_reverse' : 'name'],
+        }))
         .filter(Boolean)
     : []
 
@@ -70,7 +76,18 @@ const SearchBar = ({ className, ...rest }) => {
   }, [dispatch, autoCompleteByEntity, source, target, isAutoCompleteLoading])
 
   const onSelectSource = event => {
+    if (event.target.value !== source) {
+      setSourceEntity(undefined)
+    }
     setSource(event.target.value)
+  }
+
+  const onSelectSourceEntity = selected => {
+    setSourceEntity(selected && selected.id)
+  }
+
+  const onSelectTargetEntity = selected => {
+    setTargetEntity(selected && selected.id)
   }
 
   const onSelectRelationType = event => {
@@ -78,13 +95,22 @@ const SearchBar = ({ className, ...rest }) => {
   }
 
   const onSelectTarget = event => {
+    if (event.target.value !== target) {
+      setTargetEntity(undefined)
+    }
     setTarget(event.target.value)
   }
 
   const onFormSubmit = event => {
     event.preventDefault()
-    // TODO: query filter: relation type
-    fetchRelations(dispatch, source, target)
+    fetchRelations({
+      dispatch,
+      from: source,
+      to: target,
+      relationType,
+      sourceEntity,
+      targetEntity,
+    })
   }
 
   const getItems = allItems => filter =>
@@ -106,13 +132,18 @@ const SearchBar = ({ className, ...rest }) => {
           getItems={getItems(autoCompleteByEntity[source])}
           itemToString={item => (item ? item.text : '')}
           placeholder={`All ${source}s`}
+          onSubmit={onSelectSourceEntity}
         />
         <Select
           className={styles.Select}
           isDisabled={isLoadingRelationTypes || !relationTypeNames.length}
           onSelect={onSelectRelationType}
-          options={[...relationTypeNames, 'All relation types'].sort()}
+          options={[
+            ...relationTypeNames,
+            { id: 0, name: 'All relation types' },
+          ].sort((a, b) => a.name > b.name)}
           selected={relationType}
+          getLabel={option => option.name}
         />
         <Select
           className={styles.Select}
@@ -125,6 +156,7 @@ const SearchBar = ({ className, ...rest }) => {
           getItems={getItems(autoCompleteByEntity[target])}
           itemToString={item => (item ? item.text : '')}
           placeholder={`All ${target}s`}
+          onSubmit={onSelectTargetEntity}
         />
         <Button
           className={styles.SubmitButton}

@@ -22,9 +22,24 @@ const Notifications = () => {
       <Button
         className={styles.Button}
         onClick={() => {
-          const { from, to, offset } = notification
+          const {
+            from,
+            to,
+            offset,
+            relationType,
+            sourceEntity,
+            targetEntity,
+          } = notification
           dispatch({ type: `CLEAR_POST_LOAD_RELATIONS_NOTIFICATION` })
-          fetchRelations(dispatch, from, to, offset)
+          fetchRelations({
+            dispatch,
+            from,
+            to,
+            offset,
+            relationType,
+            sourceEntity,
+            targetEntity,
+          })
         }}
       >
         Yes

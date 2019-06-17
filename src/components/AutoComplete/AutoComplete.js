@@ -11,12 +11,10 @@ const AutoComplete = ({
   getItems,
   itemToString,
   placeholder,
+  onSubmit,
 }) => {
   return (
-    <Downshift
-      onChange={selectedItem => console.log(selectedItem)}
-      itemToString={itemToString}
-    >
+    <Downshift onChange={onSubmit} itemToString={itemToString}>
       {({
         getInputProps,
         getItemProps,

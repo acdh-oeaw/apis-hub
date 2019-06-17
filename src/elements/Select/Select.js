@@ -11,6 +11,7 @@ const Select = ({
   onSelect,
   options,
   selected,
+  getLabel,
   ...rest
 }) => (
   <label className={classNames(styles.Label, className)} {...rest}>
@@ -25,6 +26,10 @@ const Select = ({
         Array.isArray(option) ? (
           <option key={option[0]} value={option[0]}>
             {option[1]}
+          </option>
+        ) : option && typeof option === 'object' ? (
+          <option key={option.id} value={option.id}>
+            {getLabel(option)}
           </option>
         ) : (
           <option key={option} value={option}>

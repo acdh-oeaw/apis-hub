@@ -63,8 +63,40 @@ export const createApi = ({ basePath, authToken }) => {
       return request({ path, basePath, query, options })
     },
 
-    getRelations(from, to, offset = 0) {
-      const query = { format: 'json+net', limit: DEFAULT_LIMIT, offset }
+    getRelations(
+      from,
+      to,
+      relationType,
+      sourceEntity,
+      targetEntity,
+      offset = 0
+    ) {
+      const query = {
+        format: 'json+net',
+        limit: DEFAULT_LIMIT,
+        offset,
+      }
+
+      if (relationType && parseInt(relationType, 10)) {
+        query.relation_type__id = relationType
+      }
+      if (sourceEntity) {
+        // We cannot filter by `source` and `target` fields, bur need `related_institution`,
+        // or `related_personA`
+        const field =
+          from === to
+            ? `related_${from.toLowerCase()}A__id`
+            : `related_${from.toLowerCase()}__id`
+        query[field] = sourceEntity
+      }
+      if (targetEntity) {
+        const field =
+          from === to
+            ? `related_${to.toLowerCase()}B__id`
+            : `related_${to.toLowerCase()}__id`
+        query[field] = targetEntity
+      }
+
       const endpoint = handleReverse(from, to).join('')
       const path = `/apis/api/relations/${endpoint}/`
       return request({ path, basePath, query, options })
