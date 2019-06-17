@@ -1,7 +1,7 @@
 import React from 'react'
 import Spinner from '../../elements/Spinner/Spinner'
-
 import { APIS_INSTS } from '../../constants'
+import styles from './ProjectList.module.css'
 
 class ProjectList extends React.Component {
   constructor(props) {
@@ -36,21 +36,6 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    const gridStyle = {
-      display: 'grid',
-      gridTemplateColumns: 'auto auto auto',
-      padding: '10px',
-    }
-    const gridItem = {
-      padding: '10px',
-      textAlign: 'center',
-    }
-    const imgCenter = {
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '50%',
-    }
     const { error, isLoaded, items } = this.state
     if (error) {
       return <div>Error: {error.message}</div>
@@ -58,13 +43,17 @@ class ProjectList extends React.Component {
       return <Spinner />
     } else {
       return (
-        <div className={'grid-container'} style={gridStyle}>
+        <div className={styles.GridStyle}>
           {items.map(item => (
-            <div key={item.app_url} className={'grid-item'} style={gridItem}>
+            <div key={item.app_url} className={styles.GridItem}>
               <h1>{item.title.toString()}</h1>
               <h2>{item.subtitle}</h2>
               <a href={item.app_url}>
-                <img src={item.img} alt={item.subtitle} style={imgCenter} />
+                <img
+                  src={item.img}
+                  alt={item.subtitle}
+                  className={styles.ImgCenter}
+                />
               </a>
               <p>{item.description}</p>
             </div>

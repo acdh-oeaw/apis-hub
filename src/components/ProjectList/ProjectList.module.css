@@ -1,5 +1,17 @@
-.GridContainer {
+.GridStyle {
   display: grid;
   grid-template-columns: auto auto auto;
   padding: 10px;
+}
+
+.ImgCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.GridItem {
+  padding: 10px;
+  text-align: center;
 }
