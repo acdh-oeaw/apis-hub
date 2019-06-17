@@ -40,7 +40,7 @@ const Networks = () => {
   const centerNode3D = node => {
     const distance = 100
     const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z)
-    forceGraphRef.current.cameraPosition(
+    forceGraphRef3D.current.cameraPosition(
       { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
       node,
       1000
