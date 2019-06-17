@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react'
 
 import { createApi, entities, handleReverse } from '../utils/api'
-import { BASE_PATH, AUTH_TOKEN, DEFAULT_LIMIT } from '../constants'
-
-// TODO: Get this from a new `apisInstance` context, or pass into Provider
-const Api = createApi({ basePath: BASE_PATH, authToken: AUTH_TOKEN })
 
 const ApiStateContext = createContext()
 const ApiDispatchContext = createContext()
@@ -313,6 +309,7 @@ const apiReducer = (state, action) => {
       }
     }
     case actions.SET_POST_LOAD_RELATIONS_NOTIFICATION: {
+      const { defaultLimit } = action.meta
       return {
         ...state,
         relations: {
@@ -324,7 +321,7 @@ const apiReducer = (state, action) => {
               offset:
                 ((state.relations.meta.notification &&
                   state.relations.meta.notification.offset) ||
-                  0) + DEFAULT_LIMIT,
+                  0) + defaultLimit,
             },
           },
         },
@@ -515,7 +512,10 @@ export const ApiConsumer = ({ children }) => {
 // TODO: Why not get dispatch directly from context? And make this useEntityDetails (which will fetch if it does not have a cached version)
 // TODO: We don't need this at all if we use `useAsync` (with onResolve/onReject)
 // TODO: extend Error constructor
-export const fetchEntityDetails = async (dispatch, id) => {
+export const fetchEntityDetails = async (apisInstance, dispatch, id) => {
+  const { basePath, authToken, defaultLimit } = apisInstance
+  const Api = createApi({ basePath, authToken, defaultLimit })
+
   dispatch({ type: actions.SET_ENTITY_DETAILS_PENDING })
 
   try {
@@ -531,6 +531,7 @@ export const fetchEntityDetails = async (dispatch, id) => {
 }
 
 export const fetchRelations = async ({
+  apisInstance,
   dispatch,
   from,
   to,
@@ -539,6 +540,9 @@ export const fetchRelations = async ({
   sourceEntity,
   targetEntity,
 }) => {
+  const { basePath, authToken, defaultLimit } = apisInstance
+  const Api = createApi({ basePath, authToken, defaultLimit })
+
   dispatch({ type: actions.SET_RELATIONS_PENDING })
 
   try {
@@ -558,16 +562,17 @@ export const fetchRelations = async ({
     })
 
     // FIXME: PLEASE NO!
-    if (Array.isArray(data.results) && data.results.length >= DEFAULT_LIMIT) {
+    if (Array.isArray(data.results) && data.results.length >= defaultLimit) {
       dispatch({
         type: actions.SET_POST_LOAD_RELATIONS_NOTIFICATION,
+        meta: { defaultLimit },
         payload: {
           from,
           to,
           relationType,
           sourceEntity,
           targetEntity,
-          message: `You tried to load more than ${DEFAULT_LIMIT} relations. This might slow things down. Do you want to continue loading?`,
+          message: `You tried to load more than ${defaultLimit} relations. This might slow things down. Do you want to continue loading?`,
         },
       })
     }
@@ -576,7 +581,10 @@ export const fetchRelations = async ({
   }
 }
 
-export const fetchRelationTypes = async (dispatch, from, to) => {
+export const fetchRelationTypes = async (apisInstance, dispatch, from, to) => {
+  const { basePath, authToken, defaultLimit } = apisInstance
+  const Api = createApi({ basePath, authToken, defaultLimit })
+
   dispatch({ type: actions.SET_RELATION_TYPES_PENDING })
 
   try {
@@ -599,8 +607,16 @@ export const fetchRelationTypes = async (dispatch, from, to) => {
 // FIXME: Aaaargh!!
 const autoCompletePromises = {}
 
-export const fetchAutoComplete = async (dispatch, type, search = '') => {
+export const fetchAutoComplete = async (
+  apisInstance,
+  dispatch,
+  type,
+  search = ''
+) => {
   if (autoCompletePromises[type] != null) return
+
+  const { basePath, authToken, defaultLimit } = apisInstance
+  const Api = createApi({ basePath, authToken, defaultLimit })
 
   dispatch({ type: actions.SET_AUTOCOMPLETE_PENDING })
 

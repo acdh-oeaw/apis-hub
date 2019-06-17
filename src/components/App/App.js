@@ -2,6 +2,7 @@ import React from 'react'
 import { Router } from '@reach/router'
 
 import { ApiProvider } from '../../contexts/api'
+import { ApisInstanceProvider } from '../../contexts/apis-instance'
 
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
@@ -15,19 +16,22 @@ import Nav from '../Nav/Nav'
 import styles from './App.module.css'
 
 const App = () => (
-  <ApiProvider>
-    <div className={styles.App}>
-      <Header className={styles.Header}>
-        <Logo />
-        <Nav links={[['Home', '/'], ['Networks', '/networks']]} />
-      </Header>
-      <ErrorBoundary>
-        <Router className={styles.Main}>
-          <Home path="/" />
-          <Networks path="/networks" />
-        </Router>
-      </ErrorBoundary>
-    </div>
-  </ApiProvider>
+  <ApisInstanceProvider>
+    <ApiProvider>
+      <div className={styles.App}>
+        <Header className={styles.Header}>
+          <Logo />
+          <Nav links={[['Home', '/'], ['Networks', '/networks']]} />
+        </Header>
+        <ErrorBoundary>
+          <Router className={styles.Main}>
+            <Home path="/" />
+            <Networks path="/networks" />
+          </Router>
+        </ErrorBoundary>
+      </div>
+    </ApiProvider>
+  </ApisInstanceProvider>
 )
+
 export default App

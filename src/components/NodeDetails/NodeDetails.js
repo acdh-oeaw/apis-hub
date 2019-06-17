@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useApi, fetchEntityDetails } from '../../contexts/api'
+import { useApisInstanceState } from '../../contexts/apis-instance'
 
 import Entity from '../Entity/Entity'
 
@@ -12,6 +13,8 @@ const NodeDetails = ({
   selectedNodeIds,
   setSelectedNodeIds,
 }) => {
+  const { availableInstances, selected } = useApisInstanceState()
+  const apisInstance = availableInstances[selected]
   const [
     {
       entityDetails: {
@@ -25,10 +28,10 @@ const NodeDetails = ({
   useEffect(() => {
     selectedNodeIds.forEach(id => {
       if (!entityDetailsById[id]) {
-        fetchEntityDetails(dispatch, id)
+        fetchEntityDetails(apisInstance, dispatch, id)
       }
     })
-  }, [selectedNodeIds, dispatch, entityDetailsById])
+  }, [selectedNodeIds, dispatch, entityDetailsById, apisInstance])
 
   return (
     <div>

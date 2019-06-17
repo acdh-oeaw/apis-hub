@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useApi, fetchRelations } from '../../contexts/api'
+import { useApisInstanceState } from '../../contexts/apis-instance'
 
 import Button from '../../elements/Button/Button'
 
@@ -15,6 +16,8 @@ const Notifications = () => {
     },
     dispatch,
   ] = useApi()
+  const { availableInstances, selected } = useApisInstanceState()
+  const apisInstance = availableInstances[selected]
 
   return notification ? (
     <div className={styles.Notification}>
@@ -32,6 +35,7 @@ const Notifications = () => {
           } = notification
           dispatch({ type: `CLEAR_POST_LOAD_RELATIONS_NOTIFICATION` })
           fetchRelations({
+            apisInstance,
             dispatch,
             from,
             to,

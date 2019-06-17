@@ -1,5 +1,3 @@
-const { DEFAULT_LIMIT } = require(`../constants`)
-
 const createUrl = ({ path, basePath, query }) => {
   const url = new URL(path.toLowerCase(), basePath)
 
@@ -24,7 +22,7 @@ const request = async ({ path, basePath, query, options }) => {
   return data
 }
 
-export const createApi = ({ basePath, authToken }) => {
+export const createApi = ({ basePath, authToken, defaultLimit = 1000 }) => {
   const options = { headers: { Authorization: authToken } }
 
   return {
@@ -73,7 +71,7 @@ export const createApi = ({ basePath, authToken }) => {
     ) {
       const query = {
         format: 'json+net',
-        limit: DEFAULT_LIMIT,
+        limit: defaultLimit,
         offset,
       }
 

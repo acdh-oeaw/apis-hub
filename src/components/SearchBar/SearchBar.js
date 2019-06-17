@@ -7,6 +7,7 @@ import {
   fetchRelationTypes,
   fetchAutoComplete,
 } from '../../contexts/api'
+import { useApisInstanceState } from '../../contexts/apis-instance'
 
 import AutoComplete from '../AutoComplete/AutoComplete'
 
@@ -20,6 +21,9 @@ import { entities, relations } from '../../utils/api'
 import classNames from '../../utils/class-names'
 
 const SearchBar = ({ className, ...rest }) => {
+  const { availableInstances, selected } = useApisInstanceState()
+  const apisInstance = availableInstances[selected]
+
   const [source, setSource] = useState(entities[0])
   const [target, setTarget] = useState(entities[0])
 
@@ -59,21 +63,28 @@ const SearchBar = ({ className, ...rest }) => {
   useEffect(() => {
     const storedRelationTypes = relationTypesByEntity[source][target]
     if (!storedRelationTypes) {
-      fetchRelationTypes(dispatch, source, target)
+      fetchRelationTypes(apisInstance, dispatch, source, target)
     }
-  }, [dispatch, source, target, relationTypesByEntity])
+  }, [dispatch, source, target, relationTypesByEntity, apisInstance])
 
   useEffect(() => {
     // FIXME: This only works when we fetch *all* autocompletes per entity type in one go
     const storedSourceAutoCompletes = autoCompleteByEntity[source]
     if (!storedSourceAutoCompletes && !isAutoCompleteLoading) {
-      fetchAutoComplete(dispatch, source)
+      fetchAutoComplete(apisInstance, dispatch, source)
     }
     const storedTargetAutoCompletes = autoCompleteByEntity[target]
     if (!storedTargetAutoCompletes && !isAutoCompleteLoading) {
-      fetchAutoComplete(dispatch, target)
+      fetchAutoComplete(apisInstance, dispatch, target)
     }
-  }, [dispatch, autoCompleteByEntity, source, target, isAutoCompleteLoading])
+  }, [
+    dispatch,
+    autoCompleteByEntity,
+    source,
+    target,
+    isAutoCompleteLoading,
+    apisInstance,
+  ])
 
   const onSelectSource = event => {
     if (event.target.value !== source) {
@@ -104,6 +115,7 @@ const SearchBar = ({ className, ...rest }) => {
   const onFormSubmit = event => {
     event.preventDefault()
     fetchRelations({
+      apisInstance,
       dispatch,
       from: source,
       to: target,
