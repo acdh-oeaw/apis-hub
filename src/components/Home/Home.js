@@ -14,37 +14,44 @@ const Home = () => {
     {
       availableInstances,
       selected,
-      meta: { loading },
+      meta: { loading, error },
     },
     dispatch,
   ] = useApisInstance()
 
   useEffect(() => {
-    if (!Object.keys(availableInstances).length && !loading) {
+    if (!Object.keys(availableInstances).length && !loading && !error) {
       fetchApisInstances(dispatch)
     }
-  }, [availableInstances, loading, dispatch])
+  }, [availableInstances, loading, error, dispatch])
 
   return (
     <main className={styles.Home}>
       <Centered className={styles.Message}>
         <div>Welcome!</div>
-        {Object.keys(availableInstances).length ? (
-          <select
-            onChange={value => {
-              console.log(value)
-            }}
-            value={selected}
-          >
-            {Object.entries(availableInstances).map(([id, instance]) => {
-              return (
-                <option key={id} value={id}>
-                  {instance.title}
-                </option>
-              )
-            })}
-          </select>
-        ) : null}
+        <div>
+          {loading ? 'Loading ...' : null}
+          {Object.keys(availableInstances).length ? (
+            <select
+              onChange={event => {
+                dispatch({
+                  type: 'SELECT_INSTANCE',
+                  payload: event.target.value,
+                })
+              }}
+              value={selected}
+            >
+              <option>Select a APIS instance</option>
+              {Object.entries(availableInstances).map(([id, instance]) => {
+                return (
+                  <option key={id} value={id}>
+                    {instance.title}
+                  </option>
+                )
+              })}
+            </select>
+          ) : null}
+        </div>
       </Centered>
     </main>
   )

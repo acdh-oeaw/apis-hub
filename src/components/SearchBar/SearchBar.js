@@ -42,7 +42,7 @@ const SearchBar = ({ className, ...rest }) => {
         meta: { isLoading: isLoadingRelations },
       },
       autoComplete: {
-        meta: { isLoading: isAutoCompleteLoading },
+        meta: { isLoading: isAutoCompleteLoading, error: autoCompleteError },
         byEntityType: autoCompleteByEntity,
       },
     },
@@ -70,11 +70,19 @@ const SearchBar = ({ className, ...rest }) => {
   useEffect(() => {
     // FIXME: This only works when we fetch *all* autocompletes per entity type in one go
     const storedSourceAutoCompletes = autoCompleteByEntity[source]
-    if (!storedSourceAutoCompletes && !isAutoCompleteLoading) {
+    if (
+      !storedSourceAutoCompletes &&
+      !isAutoCompleteLoading &&
+      !autoCompleteError
+    ) {
       fetchAutoComplete(apisInstance, dispatch, source)
     }
     const storedTargetAutoCompletes = autoCompleteByEntity[target]
-    if (!storedTargetAutoCompletes && !isAutoCompleteLoading) {
+    if (
+      !storedTargetAutoCompletes &&
+      !isAutoCompleteLoading &&
+      !autoCompleteError
+    ) {
       fetchAutoComplete(apisInstance, dispatch, target)
     }
   }, [
@@ -83,6 +91,7 @@ const SearchBar = ({ className, ...rest }) => {
     source,
     target,
     isAutoCompleteLoading,
+    autoCompleteError,
     apisInstance,
   ])
 
