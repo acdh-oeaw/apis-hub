@@ -77,7 +77,7 @@ const SearchBar = ({ className, ...rest }) => {
 
   const onSelectSource = event => {
     if (event.target.value !== source) {
-      setSourceEntity(undefined)
+      setSourceEntity(null)
     }
     setSource(event.target.value)
   }
@@ -96,7 +96,7 @@ const SearchBar = ({ className, ...rest }) => {
 
   const onSelectTarget = event => {
     if (event.target.value !== target) {
-      setTargetEntity(undefined)
+      setTargetEntity(null)
     }
     setTarget(event.target.value)
   }
@@ -133,6 +133,7 @@ const SearchBar = ({ className, ...rest }) => {
           itemToString={item => (item ? item.text : '')}
           placeholder={`All ${source}s`}
           onSubmit={onSelectSourceEntity}
+          selectedItem={sourceEntity}
         />
         <Select
           className={styles.Select}
@@ -157,6 +158,7 @@ const SearchBar = ({ className, ...rest }) => {
           itemToString={item => (item ? item.text : '')}
           placeholder={`All ${target}s`}
           onSubmit={onSelectTargetEntity}
+          selectedItem={targetEntity}
         />
         <Button
           className={styles.SubmitButton}

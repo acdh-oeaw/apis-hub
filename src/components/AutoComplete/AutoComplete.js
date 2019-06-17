@@ -12,9 +12,14 @@ const AutoComplete = ({
   itemToString,
   placeholder,
   onSubmit,
+  selectedItem,
 }) => {
   return (
-    <Downshift onChange={onSubmit} itemToString={itemToString}>
+    <Downshift
+      itemToString={itemToString}
+      onChange={onSubmit}
+      selectedItem={selectedItem}
+    >
       {({
         getInputProps,
         getItemProps,
