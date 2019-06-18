@@ -7,3 +7,15 @@
   font-size: 4rem;
   font-weight: 700;
 }
+
+.Block {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Select {
+  font-size: 1.4rem;
+  margin: 3rem;
+}

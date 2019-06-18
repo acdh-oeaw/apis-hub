@@ -9,6 +9,7 @@
   background-image: none;
   border: none;
   border-bottom: 2px solid var(--color-primary);
+  cursor: pointer;
   flex: 1;
   position: relative;
   width: 100%;

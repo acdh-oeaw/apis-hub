@@ -8314,10 +8314,10 @@ react-loader-spinner@^2.3.0:
     babel-runtime "^6.26.0"
     prop-types "^15.6.2"
 
-react-resize-aware@^3.0.0-beta.3:
-  version "3.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/react-resize-aware/-/react-resize-aware-3.0.0-beta.3.tgz#35aeddebfc4595f01323d0f473884099c4633f1b"
-  integrity sha512-XRnj1qgEAvrjOM7c/wsrVLBJxu0TNOKrhgWG7OasCdYiQSCyqiACxJUScTIknUk0bGV7MaagBjMa0CCYXK4ktQ==
+react-resize-aware@3.0.0-beta.4:
+  version "3.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/react-resize-aware/-/react-resize-aware-3.0.0-beta.4.tgz#dc7684d8246067aae36eb3edb65ad879d6719084"
+  integrity sha512-gbGPGb4EQEMKj/JLqw1gf8cWkJhn6fkidw2RNUhFcINonQxEGjA9ZahyUmKGExcFHeJVreRpNb0k94BLqspndg==
 
 react-scripts@3.0.1:
   version "3.0.1"

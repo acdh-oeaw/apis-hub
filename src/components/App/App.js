@@ -2,7 +2,10 @@ import React from 'react'
 import { Router } from '@reach/router'
 
 import { ApiProvider } from '../../contexts/api'
-import { ApisInstanceProvider } from '../../contexts/apis-instance'
+import {
+  ApisInstanceProvider,
+  useApisInstanceState,
+} from '../../contexts/apis-instance'
 
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
@@ -15,23 +18,42 @@ import Nav from '../Nav/Nav'
 
 import styles from './App.module.css'
 
-const App = () => (
+const Providers = ({ children }) => (
   <ApisInstanceProvider>
-    <ApiProvider>
-      <div className={styles.App}>
-        <Header className={styles.Header}>
-          <Logo />
-          <Nav links={[['Home', '/'], ['Networks', '/networks']]} />
-        </Header>
-        <ErrorBoundary>
-          <Router className={styles.Main}>
-            <Home path="/" />
-            <Networks path="/networks" />
-          </Router>
-        </ErrorBoundary>
-      </div>
-    </ApiProvider>
+    <ApiProvider>{children}</ApiProvider>
   </ApisInstanceProvider>
+)
+
+const Layout = () => {
+  const { availableInstances, selected } = useApisInstanceState()
+  const apisInstance = selected ? availableInstances[selected] : null
+
+  return (
+    <div className={styles.App}>
+      <Header className={styles.Header}>
+        <Logo />
+        <Nav
+          links={
+            apisInstance
+              ? [['Home', '/'], ['Networks', '/networks']]
+              : [['Home', '/']]
+          }
+        />
+      </Header>
+      <ErrorBoundary>
+        <Router className={styles.Main}>
+          <Home path="/" default />
+          {apisInstance ? <Networks path="/networks" /> : null}
+        </Router>
+      </ErrorBoundary>
+    </div>
+  )
+}
+
+const App = () => (
+  <Providers>
+    <Layout />
+  </Providers>
 )
 
 export default App
