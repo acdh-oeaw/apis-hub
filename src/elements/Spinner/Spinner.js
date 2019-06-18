@@ -11,7 +11,7 @@ const Spinner = ({ width, height, color }) => (
       width={width}
       type="Grid"
     />
-    <span>Loading ...</span>
+    <span className={styles.Loading}>Loading ...</span>
   </span>
 )
 

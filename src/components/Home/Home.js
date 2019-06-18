@@ -5,6 +5,7 @@ import {
   useApisInstance,
   fetchApisInstances,
 } from '../../contexts/apis-instance'
+import { useApiDispatch } from '../../contexts/api'
 
 import Button from '../../elements/Button/Button'
 import Centered from '../../elements/Centered/Centered'
@@ -22,6 +23,7 @@ const Home = () => {
     },
     dispatch,
   ] = useApisInstance()
+  const dispatchRelations = useApiDispatch()
 
   const apisInstance = availableInstances[selected]
 
@@ -41,6 +43,9 @@ const Home = () => {
             {Object.keys(availableInstances).length ? (
               <Select
                 onSelect={event => {
+                  dispatchRelations({
+                    type: 'CLEAR_RELATIONS',
+                  })
                   dispatch({
                     type: 'SELECT_INSTANCE',
                     payload: event.target.value,

@@ -16,7 +16,19 @@ import Header from '../Header/Header'
 import Logo from '../Logo/Logo'
 import Nav from '../Nav/Nav'
 
+import Centered from '../../elements/Centered/Centered'
+
 import styles from './App.module.css'
+
+const ProtectedRoute = ({ component: Component, noLoginRequired }) => {
+  const user = ''
+
+  return noLoginRequired || user ? (
+    <Component />
+  ) : (
+    <Centered>Login required (not yet implemented)</Centered>
+  )
+}
 
 const Providers = ({ children }) => (
   <ApisInstanceProvider>
@@ -43,7 +55,13 @@ const Layout = () => {
       <ErrorBoundary>
         <Router className={styles.Main}>
           <Home path="/" default />
-          {apisInstance ? <Networks path="/networks" /> : null}
+          {apisInstance ? (
+            <ProtectedRoute
+              path="/networks"
+              component={Networks}
+              noLoginRequired={!apisInstance.restricted}
+            />
+          ) : null}
         </Router>
       </ErrorBoundary>
     </div>

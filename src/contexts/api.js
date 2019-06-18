@@ -73,6 +73,7 @@ const initialState = {
     meta: {
       isLoading: false,
       error: null,
+      offset: 0,
     },
   },
   relationTypes: {
@@ -277,6 +278,7 @@ const apiReducer = (state, action) => {
           byId: { ...byId, ...newById },
           ids: [...ids, ...newIds],
           meta: {
+            ...state.relations.meta,
             isLoading: false,
             error: null,
           },
@@ -289,6 +291,7 @@ const apiReducer = (state, action) => {
         relations: {
           ...state.relations,
           meta: {
+            ...state.relations.meta,
             isLoading: true,
             error: null,
           },
@@ -302,6 +305,7 @@ const apiReducer = (state, action) => {
         relations: {
           ...state.relations,
           meta: {
+            offset: 0,
             isLoading: false,
             error,
           },
@@ -309,19 +313,16 @@ const apiReducer = (state, action) => {
       }
     }
     case actions.SET_POST_LOAD_RELATIONS_NOTIFICATION: {
-      const { defaultLimit } = action.meta
+      const { offset } = action.meta
       return {
         ...state,
         relations: {
           ...state.relations,
           meta: {
             ...state.relations.meta,
+            offset,
             notification: {
               ...action.payload,
-              offset:
-                ((state.relations.meta.notification &&
-                  state.relations.meta.notification.offset) ||
-                  0) + defaultLimit,
             },
           },
         },
@@ -565,7 +566,7 @@ export const fetchRelations = async ({
     if (Array.isArray(data.results) && data.results.length >= defaultLimit) {
       dispatch({
         type: actions.SET_POST_LOAD_RELATIONS_NOTIFICATION,
-        meta: { defaultLimit },
+        meta: { offset: (offset || 0) + defaultLimit },
         payload: {
           from,
           to,

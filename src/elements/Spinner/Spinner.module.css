@@ -10,3 +10,7 @@
 .Spinner div svg {
   display: inline !important;
 }
+
+.Loading {
+  margin-left: 0.1rem;
+}

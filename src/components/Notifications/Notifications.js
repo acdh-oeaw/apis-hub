@@ -11,7 +11,7 @@ const Notifications = () => {
   const [
     {
       relations: {
-        meta: { notification },
+        meta: { notification, offset },
       },
     },
     dispatch,
@@ -28,12 +28,10 @@ const Notifications = () => {
           const {
             from,
             to,
-            offset,
             relationType,
             sourceEntity,
             targetEntity,
           } = notification
-          dispatch({ type: `CLEAR_POST_LOAD_RELATIONS_NOTIFICATION` })
           fetchRelations({
             apisInstance,
             dispatch,
@@ -44,6 +42,7 @@ const Notifications = () => {
             sourceEntity,
             targetEntity,
           })
+          dispatch({ type: `CLEAR_POST_LOAD_RELATIONS_NOTIFICATION` })
         }}
       >
         Yes
