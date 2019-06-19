@@ -14,3 +14,8 @@
   flex: 1;
   flex-direction: column;
 }
+
+.HeaderInfo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}

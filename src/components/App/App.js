@@ -39,13 +39,24 @@ const Providers = ({ children }) => (
 )
 
 const Layout = () => {
+  const user = useUserState()
   const { availableInstances, selected } = useApisInstanceState()
+
   const apisInstance = selected ? availableInstances[selected] : null
+  const currentUser = selected && user[selected] && user[selected].username
 
   return (
     <div className={styles.App}>
       <Header className={styles.Header}>
         <Logo />
+        <div>
+          {apisInstance && (
+            <span className={styles.HeaderInfo}>{apisInstance.title}</span>
+          )}
+          {currentUser && (
+            <span className={styles.HeaderInfo}> || {currentUser}</span>
+          )}
+        </div>
         <Nav
           links={
             apisInstance
