@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useApi, fetchEntityDetails } from '../../contexts/api'
 import { useApisInstanceState } from '../../contexts/apis-instance'
+import { useUserState } from '../../contexts/user'
 
 import Entity from '../Entity/Entity'
 
@@ -25,13 +26,16 @@ const NodeDetails = ({
     dispatch,
   ] = useApi()
 
+  const user = useUserState()
+  const currentUser = user[selected]
+
   useEffect(() => {
     selectedNodeIds.forEach(id => {
       if (!entityDetailsById[id]) {
-        fetchEntityDetails(apisInstance, dispatch, id)
+        fetchEntityDetails({ apisInstance, dispatch, id, user: currentUser })
       }
     })
-  }, [selectedNodeIds, dispatch, entityDetailsById, apisInstance])
+  }, [selectedNodeIds, dispatch, entityDetailsById, apisInstance, currentUser])
 
   return (
     <div>

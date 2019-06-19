@@ -6,6 +6,8 @@ const ApiStateContext = createContext()
 const ApiDispatchContext = createContext()
 
 export const actions = {
+  CLEAR_EVERYTHING: 'CLEAR_EVERYTHING',
+
   SET_AUTOCOMPLETE: 'SET_AUTOCOMPLETE',
   SET_AUTOCOMPLETE_PENDING: 'SET_AUTOCOMPLETE_PENDING',
   SET_AUTOCOMPLETE_ERROR: 'SET_AUTOCOMPLETE_ERROR',
@@ -178,6 +180,10 @@ const normalizeRelationType = relationType => relationType
 // TODO: Cleanup!
 const apiReducer = (state, action) => {
   switch (action.type) {
+    case actions.CLEAR_EVERYTHING: {
+      return { ...initialState }
+    }
+
     case actions.SET_ENTITY_DETAILS: {
       const result = action.payload
 
@@ -509,12 +515,14 @@ export const ApiConsumer = ({ children }) => {
   )
 }
 
-// FIXME: Should we return this in useApi directly?
-// TODO: Why not get dispatch directly from context? And make this useEntityDetails (which will fetch if it does not have a cached version)
-// TODO: We don't need this at all if we use `useAsync` (with onResolve/onReject)
-// TODO: extend Error constructor
-export const fetchEntityDetails = async (apisInstance, dispatch, id) => {
-  const { basePath, authToken, defaultLimit } = apisInstance
+export const fetchEntityDetails = async ({
+  apisInstance,
+  dispatch,
+  id,
+  user,
+}) => {
+  const { basePath, defaultLimit } = apisInstance
+  const authToken = user && 'Basic ' + btoa(`${user.username}:${user.password}`)
   const Api = createApi({ basePath, authToken, defaultLimit })
 
   dispatch({ type: actions.SET_ENTITY_DETAILS_PENDING })
@@ -540,8 +548,10 @@ export const fetchRelations = async ({
   relationType,
   sourceEntity,
   targetEntity,
+  user,
 }) => {
-  const { basePath, authToken, defaultLimit } = apisInstance
+  const { basePath, defaultLimit } = apisInstance
+  const authToken = user && 'Basic ' + btoa(`${user.username}:${user.password}`)
   const Api = createApi({ basePath, authToken, defaultLimit })
 
   dispatch({ type: actions.SET_RELATIONS_PENDING })
@@ -582,8 +592,15 @@ export const fetchRelations = async ({
   }
 }
 
-export const fetchRelationTypes = async (apisInstance, dispatch, from, to) => {
-  const { basePath, authToken, defaultLimit } = apisInstance
+export const fetchRelationTypes = async ({
+  apisInstance,
+  dispatch,
+  from,
+  to,
+  user,
+}) => {
+  const { basePath, defaultLimit } = apisInstance
+  const authToken = user && 'Basic ' + btoa(`${user.username}:${user.password}`)
   const Api = createApi({ basePath, authToken, defaultLimit })
 
   dispatch({ type: actions.SET_RELATION_TYPES_PENDING })
@@ -608,15 +625,17 @@ export const fetchRelationTypes = async (apisInstance, dispatch, from, to) => {
 // FIXME: Aaaargh!!
 const autoCompletePromises = {}
 
-export const fetchAutoComplete = async (
+export const fetchAutoComplete = async ({
   apisInstance,
   dispatch,
   type,
-  search = ''
-) => {
+  search = '',
+  user,
+}) => {
   if (autoCompletePromises[type] != null) return
 
-  const { basePath, authToken, defaultLimit } = apisInstance
+  const { basePath, defaultLimit } = apisInstance
+  const authToken = user && 'Basic ' + btoa(`${user.username}:${user.password}`)
   const Api = createApi({ basePath, authToken, defaultLimit })
 
   dispatch({ type: actions.SET_AUTOCOMPLETE_PENDING })

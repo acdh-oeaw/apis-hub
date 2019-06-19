@@ -54,7 +54,9 @@ const Layout = () => {
             <span className={styles.HeaderInfo}>{apisInstance.title}</span>
           )}
           {currentUser && (
-            <span className={styles.HeaderInfo}> || {currentUser}</span>
+            <span className={styles.HeaderInfo}>
+              &nbsp;&nbsp;|&nbsp;&nbsp;{currentUser}
+            </span>
           )}
         </div>
         <Nav

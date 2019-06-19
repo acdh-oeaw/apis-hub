@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useApi, fetchRelations } from '../../contexts/api'
 import { useApisInstanceState } from '../../contexts/apis-instance'
+import { useUserState } from '../../contexts/user'
 
 import Button from '../../elements/Button/Button'
 
@@ -18,6 +19,9 @@ const Notifications = () => {
   ] = useApi()
   const { availableInstances, selected } = useApisInstanceState()
   const apisInstance = availableInstances[selected]
+
+  const user = useUserState()
+  const currentUser = user[selected]
 
   return notification ? (
     <div className={styles.Notification}>
@@ -41,6 +45,7 @@ const Notifications = () => {
             relationType,
             sourceEntity,
             targetEntity,
+            user: currentUser,
           })
           dispatch({ type: `CLEAR_POST_LOAD_RELATIONS_NOTIFICATION` })
         }}

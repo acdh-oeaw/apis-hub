@@ -79,7 +79,7 @@ export const createApi = ({ basePath, authToken, defaultLimit = 1000 }) => {
         query.relation_type__id = relationType
       }
       if (sourceEntity) {
-        // We cannot filter by `source` and `target` fields, bur need `related_institution`,
+        // We cannot filter by `source` and `target` fields, but need `related_institution`,
         // or `related_personA`
         const field =
           from === to

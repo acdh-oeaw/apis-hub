@@ -7,6 +7,8 @@ import {
 } from '../../contexts/apis-instance'
 import { useApiDispatch } from '../../contexts/api'
 
+import Tile from '../Tile/Tile'
+
 import Button from '../../elements/Button/Button'
 import Centered from '../../elements/Centered/Centered'
 import Select from '../../elements/Select/Select'
@@ -38,7 +40,7 @@ const Home = () => {
       <Centered className={styles.Message}>
         <div className={styles.Block}>
           <div>Welcome!</div>
-          <div className={styles.Select}>
+          {/* <div className={styles.Select}>
             {loading ? <Spinner width="1em" /> : null}
             {Object.keys(availableInstances).length ? (
               <Select
@@ -64,6 +66,29 @@ const Home = () => {
           </div>
           {apisInstance ? (
             <Button onClick={() => navigate('/networks')}>Select</Button>
+          ) : null} */}
+
+          {loading ? <Spinner width="1em" /> : null}
+          {Object.keys(availableInstances).length ? (
+            <div className={styles.Tiles}>
+              {Object.values(availableInstances).map(instance => (
+                <Tile
+                  className={styles.Tile}
+                  key={instance.app_id}
+                  {...instance}
+                  onClick={() => {
+                    dispatchRelations({
+                      type: 'CLEAR_EVERYTHING',
+                    })
+                    dispatch({
+                      type: 'SELECT_INSTANCE',
+                      payload: instance.app_id,
+                    })
+                    navigate('/networks')
+                  }}
+                />
+              ))}
+            </div>
           ) : null}
         </div>
       </Centered>

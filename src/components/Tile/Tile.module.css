@@ -1,0 +1,38 @@
+.Tile {
+  border: 1px solid var(--color-light-grey);
+  display: flex;
+  justify-content: stretch;
+  margin: 1rem;
+  max-width: 50rem;
+}
+
+.Content {
+  flex: 3;
+  font-size: 1.4rem;
+  padding: 1.5rem;
+}
+
+.Title {
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.Subtitle {
+  color: var(--color-grey);
+  margin-bottom: 1rem;
+}
+
+.Description {
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.ImageContainer {
+  flex: 1;
+}
+
+.Image {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}

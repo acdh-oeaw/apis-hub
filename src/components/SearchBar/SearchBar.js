@@ -8,6 +8,7 @@ import {
   fetchAutoComplete,
 } from '../../contexts/api'
 import { useApisInstanceState } from '../../contexts/apis-instance'
+import { useUserState } from '../../contexts/user'
 
 import AutoComplete from '../AutoComplete/AutoComplete'
 
@@ -23,6 +24,9 @@ import classNames from '../../utils/class-names'
 const SearchBar = ({ className, ...rest }) => {
   const { availableInstances, selected } = useApisInstanceState()
   const apisInstance = availableInstances[selected]
+
+  const user = useUserState()
+  const currentUser = user[selected]
 
   const [source, setSource] = useState(entities[0])
   const [target, setTarget] = useState(entities[0])
@@ -63,9 +67,22 @@ const SearchBar = ({ className, ...rest }) => {
   useEffect(() => {
     const storedRelationTypes = relationTypesByEntity[source][target]
     if (!storedRelationTypes) {
-      fetchRelationTypes(apisInstance, dispatch, source, target)
+      fetchRelationTypes({
+        apisInstance,
+        dispatch,
+        from: source,
+        to: target,
+        user: currentUser,
+      })
     }
-  }, [dispatch, source, target, relationTypesByEntity, apisInstance])
+  }, [
+    dispatch,
+    source,
+    target,
+    relationTypesByEntity,
+    apisInstance,
+    currentUser,
+  ])
 
   useEffect(() => {
     // FIXME: This only works when we fetch *all* autocompletes per entity type in one go
@@ -75,7 +92,12 @@ const SearchBar = ({ className, ...rest }) => {
       !isAutoCompleteLoading &&
       !autoCompleteError
     ) {
-      fetchAutoComplete(apisInstance, dispatch, source)
+      fetchAutoComplete({
+        apisInstance,
+        dispatch,
+        type: source,
+        user: currentUser,
+      })
     }
     const storedTargetAutoCompletes = autoCompleteByEntity[target]
     if (
@@ -83,7 +105,12 @@ const SearchBar = ({ className, ...rest }) => {
       !isAutoCompleteLoading &&
       !autoCompleteError
     ) {
-      fetchAutoComplete(apisInstance, dispatch, target)
+      fetchAutoComplete({
+        apisInstance,
+        dispatch,
+        type: target,
+        user: currentUser,
+      })
     }
   }, [
     dispatch,
@@ -93,6 +120,7 @@ const SearchBar = ({ className, ...rest }) => {
     isAutoCompleteLoading,
     autoCompleteError,
     apisInstance,
+    currentUser,
   ])
 
   const onSelectSource = event => {
@@ -131,6 +159,7 @@ const SearchBar = ({ className, ...rest }) => {
       relationType,
       sourceEntity,
       targetEntity,
+      user: currentUser,
     })
   }
 
