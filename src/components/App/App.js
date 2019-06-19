@@ -6,6 +6,7 @@ import {
   ApisInstanceProvider,
   useApisInstanceState,
 } from '../../contexts/apis-instance'
+import { useUserState, UserProvider } from '../../contexts/user'
 
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
@@ -13,26 +14,27 @@ import Home from '../Home/Home'
 import Networks from '../Networks/Networks'
 
 import Header from '../Header/Header'
+import Login from '../Login/Login'
 import Logo from '../Logo/Logo'
 import Nav from '../Nav/Nav'
 
-import Centered from '../../elements/Centered/Centered'
-
 import styles from './App.module.css'
 
-const ProtectedRoute = ({ component: Component, noLoginRequired }) => {
-  const user = ''
+const ProtectedRoute = ({ component: Component, instance }) => {
+  const user = useUserState()
 
-  return noLoginRequired || user ? (
+  return instance.public === 'public' || user[instance.app_id] ? (
     <Component />
   ) : (
-    <Centered>Login required (not yet implemented)</Centered>
+    <Login instance={instance} />
   )
 }
 
 const Providers = ({ children }) => (
   <ApisInstanceProvider>
-    <ApiProvider>{children}</ApiProvider>
+    <UserProvider>
+      <ApiProvider>{children}</ApiProvider>
+    </UserProvider>
   </ApisInstanceProvider>
 )
 
@@ -59,7 +61,7 @@ const Layout = () => {
             <ProtectedRoute
               path="/networks"
               component={Networks}
-              noLoginRequired={!apisInstance.restricted}
+              instance={apisInstance}
             />
           ) : null}
         </Router>
