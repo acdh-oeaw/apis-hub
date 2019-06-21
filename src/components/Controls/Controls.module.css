@@ -39,7 +39,6 @@
 }
 .SelectMode span,
 .SelectMode select {
-  color: var(--color-light-grey);
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.1rem;
@@ -47,6 +46,9 @@
 }
 .SelectMode select {
   margin-bottom: 0.6rem;
+}
+.SelectMode span {
+  color: var(--color-light-grey);
 }
 
 .Highlight {

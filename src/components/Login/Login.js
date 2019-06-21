@@ -37,6 +37,7 @@ const Login = ({ instance }) => {
           <label>
             <span>Username</span>
             <input
+              className={styles.Input}
               type="text"
               value={username}
               onChange={event => setUsername(event.target.value)}
@@ -45,6 +46,7 @@ const Login = ({ instance }) => {
           <label>
             <span>Password</span>
             <input
+              className={styles.Input}
               type="password"
               value={password}
               onChange={event => setPassword(event.target.value)}
