@@ -77,6 +77,11 @@ export const convertToGexf = (nodes, edges) => {
   const nodesElement = doc.createElement('nodes')
   const edgesElement = doc.createElement('edges')
 
+  graphElement.appendChild(nodesElement)
+  graphElement.appendChild(edgesElement)
+  gexfElement.appendChild(graphElement)
+  doc.appendChild(gexfElement)
+
   nodes.forEach(node => {
     const nodeElement = doc.createElement('node')
     nodeElement.setAttribute('id', node.id)

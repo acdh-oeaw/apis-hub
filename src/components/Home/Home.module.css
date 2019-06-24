@@ -45,3 +45,7 @@
 .Tile:hover {
   border-color: var(--color-primary);
 }
+
+.Spinner {
+  font-size: 1.5rem;
+}

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ExportButtons from '../ExportButtons/ExportButtons'
+
 import Button from '../../elements/Button/Button'
 import Input from '../../elements/Input/Input'
 import Popover from '../../elements/Popover/Popover'
@@ -96,6 +98,8 @@ const Controls = ({
       >
         Clear
       </Button>
+
+      {graph && graph.nodes.size ? <ExportButtons graph={graph} /> : null}
     </Popover>
 
     <form

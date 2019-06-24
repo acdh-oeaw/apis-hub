@@ -1,0 +1,25 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.Select {
+  font-weight: 700;
+  height: 6rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.Select span {
+  color: var(--color-white);
+}
+.Select select {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  margin: 1rem 0;
+  text-transform: uppercase;
+}
+
+.Button {
+}
