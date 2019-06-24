@@ -44,8 +44,8 @@ export const convertToGraphML = (nodes, edges) => {
   edges.forEach(edge => {
     const edgeElement = doc.createElement('edge')
     edgeElement.setAttribute('id', edge.id)
-    edgeElement.setAttribute('source', edge.source)
-    edgeElement.setAttribute('target', edge.target)
+    edgeElement.setAttribute('source', edge.source.id || edge.source)
+    edgeElement.setAttribute('target', edge.target.id || edge.target)
     edgesElement.appendChild(edgeElement)
   })
 
@@ -94,8 +94,8 @@ export const convertToGexf = (nodes, edges) => {
   edges.forEach(edge => {
     const edgeElement = doc.createElement('edge')
     edgeElement.setAttribute('id', edge.id)
-    edgeElement.setAttribute('source', edge.source)
-    edgeElement.setAttribute('target', edge.target)
+    edgeElement.setAttribute('source', edge.source.id || edge.source)
+    edgeElement.setAttribute('target', edge.target.id || edge.target)
     edgesElement.appendChild(edgeElement)
   })
 
