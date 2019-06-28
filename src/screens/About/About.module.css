@@ -1,0 +1,19 @@
+.Container {
+  height: 100%;
+}
+
+.Content {
+  line-height: 2;
+  padding: 4rem;
+  max-width: 65rem;
+  margin: 0 auto;
+}
+
+.Content p {
+  font-size: 1.4rem;
+}
+
+.Heading {
+  font-size: 2rem;
+  margin-top: 2rem;
+}

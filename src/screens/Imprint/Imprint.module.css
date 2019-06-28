@@ -1,0 +1,27 @@
+.Container {
+  background-color: var(--color-tertiary);
+  height: 100%;
+  padding: 4rem;
+  color: var(--color-white);
+}
+
+.Content {
+  line-height: 2;
+  max-width: 65rem;
+  margin: 0 auto;
+}
+
+.Content a,
+.Content div div p a {
+  color: currentColor !important; /* the imprint service sets style attribute on mailto links */
+}
+
+.Content hr {
+  margin: 2rem 0;
+  color: var(--color-white);
+}
+
+.Heading {
+  font-size: 2rem;
+  margin-top: 2rem;
+}

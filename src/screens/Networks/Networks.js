@@ -2,14 +2,14 @@ import React, { useState, useRef, useEffect } from 'react'
 
 import { useApiDispatch } from '../../contexts/api'
 
-import Controls from '../Controls/Controls'
-import Graph from '../Graph/Graph'
-import Notifications from '../Notifications/Notifications'
-import SearchBar from '../SearchBar/SearchBar'
+import Controls from '../../components/Controls/Controls'
+import Graph from '../../components/Graph/Graph'
+import Notifications from '../../components/Notifications/Notifications'
+import SearchBar from '../../components/SearchBar/SearchBar'
 
 import styles from './Networks.module.css'
 
-const Networks = () => {
+const NetworksPage = () => {
   const dispatch = useApiDispatch()
   const [dagMode, setDagMode] = useState()
   const [zoom, setZoom] = useState()
@@ -106,4 +106,4 @@ const Networks = () => {
   )
 }
 
-export default Networks
+export default NetworksPage

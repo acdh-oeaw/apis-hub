@@ -49,3 +49,31 @@
 .Spinner {
   font-size: 1.5rem;
 }
+
+.Title {
+  margin-bottom: 2rem;
+}
+
+.FooterContainer {
+  /* align-items: center; */
+  background-color: var(--color-dark-grey);
+  color: var(--color-grey);
+  display: flex;
+  font-size: 1.1rem;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.FooterContainer div {
+  flex-basis: 20rem;
+}
+
+.FooterContainer h4,
+.Spacer {
+  margin-bottom: 0.4rem;
+}
+
+.FooterContainer a {
+  color: currentColor;
+  text-decoration: none;
+}

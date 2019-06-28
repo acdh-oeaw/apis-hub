@@ -10,8 +10,10 @@ import { useUserState, UserProvider } from '../../contexts/user'
 
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
-import Home from '../Home/Home'
-import Networks from '../Networks/Networks'
+import AboutPage from '../../screens/About/About'
+import HomePage from '../../screens/Home/Home'
+import ImprintPage from '../../screens/Imprint/Imprint'
+import NetworksPage from '../../screens/Networks/Networks'
 
 import Header from '../Header/Header'
 import Login from '../Login/Login'
@@ -62,21 +64,28 @@ const Layout = () => {
         <Nav
           links={
             apisInstance
-              ? [['Home', '/'], ['Networks', '/networks']]
-              : [['Home', '/']]
+              ? [
+                  ['Home', '/'],
+                  ['Networks', '/networks'],
+                  ['About', '/about'],
+                  ['Imprint', '/imprint'],
+                ]
+              : [['Home', '/'], ['About', '/about'], ['Imprint', '/imprint']]
           }
         />
       </Header>
       <ErrorBoundary>
         <Router className={styles.Main}>
-          <Home path="/" default />
+          <HomePage path="/" default />
           {apisInstance ? (
             <ProtectedRoute
               path="/networks"
-              component={Networks}
+              component={NetworksPage}
               instance={apisInstance}
             />
           ) : null}
+          <AboutPage path="/about" />
+          <ImprintPage path="/imprint" />
         </Router>
       </ErrorBoundary>
     </div>
