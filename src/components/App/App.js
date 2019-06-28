@@ -112,7 +112,7 @@ const Layout = () => {
 const App = () => (
   <Providers>
     <LocationProvider history={matomoHistory}>
-      <Layout />}
+      <Layout />
     </LocationProvider>
   </Providers>
 )
