@@ -1,5 +1,6 @@
 import React from 'react'
-import { Router } from '@reach/router'
+import { Router, LocationProvider, createHistory } from '@reach/router'
+import Matomo from 'react-piwik'
 
 import { ApiProvider } from '../../contexts/api'
 import {
@@ -21,6 +22,22 @@ import Logo from '../Logo/Logo'
 import Nav from '../Nav/Nav'
 
 import styles from './App.module.css'
+
+import { MATOMO_ENDPOINT, MATOMO_ID } from '../../constants'
+
+// TODO: Roll our own
+const matomo = new Matomo({
+  url: MATOMO_ENDPOINT,
+  phpFilename: 'matomo.php',
+  jsFilename: 'matomo.js',
+  siteId: MATOMO_ID,
+  trackErrors: true,
+})
+const matomoHistory = createHistory(window)
+matomoHistory.listen(({ location }) => {
+  console.info('[tracked event] Route change', location)
+  matomo.track(location)
+})
 
 const ProtectedRoute = ({ component: Component, instance }) => {
   const user = useUserState()
@@ -94,7 +111,9 @@ const Layout = () => {
 
 const App = () => (
   <Providers>
-    <Layout />
+    <LocationProvider history={matomoHistory}>
+      <Layout />}
+    </LocationProvider>
   </Providers>
 )
 
