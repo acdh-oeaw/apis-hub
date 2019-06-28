@@ -11,7 +11,7 @@ const Logo = () => (
       <Hexagon style={{ color: 'var(--color-secondary)' }} />
       <Hexagon style={{ color: 'var(--color-tertiary)' }} />
     </div>
-    <div className={styles.Name}>APIS NERV</div>
+    <div className={styles.Name}>APIS HUB</div>
   </div>
 )
 

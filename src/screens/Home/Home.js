@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { navigate } from '@reach/router'
 
 import {
   useApisInstance,
@@ -15,7 +14,7 @@ import Spinner from '../../elements/Spinner/Spinner'
 
 import styles from './Home.module.css'
 
-const HomePage = () => {
+const HomePage = ({ navigate }) => {
   const [
     {
       availableInstances,
