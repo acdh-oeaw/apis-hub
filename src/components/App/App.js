@@ -35,7 +35,7 @@ const matomo = new Matomo({
 })
 const matomoHistory = createHistory(window)
 matomoHistory.listen(({ location }) => {
-  console.info('[tracked event] Route change', location)
+  // console.info('[tracked event] Route change', location)
   matomo.track(location)
 })
 

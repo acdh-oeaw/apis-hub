@@ -36,3 +36,15 @@
   object-fit: cover;
   object-position: center;
 }
+
+.ProjectLink {
+  border-bottom: 2px solid transparent;
+  color: currentColor;
+  display: inline-block;
+  margin-top: 0.6rem;
+  text-decoration: none;
+}
+
+.ProjectLink:hover {
+  border-bottom: 2px solid currentColor;
+}
