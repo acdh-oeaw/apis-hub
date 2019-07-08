@@ -21,6 +21,7 @@ const actions = {
   SET_AVAILABLE_INSTANCES_PENDING: 'SET_AVAILABLE_INSTANCES_PENDING',
   SET_AVAILABLE_INSTANCES_ERROR: 'SET_AVAILABLE_INSTANCES_ERROR',
   SELECT_INSTANCE: 'SELECT_INSTANCE',
+  ADD_EXTRA_INSTANCE: 'ADD_EXTRA_INSTANCE',
 }
 
 const apisReducer = (state, action) => {
@@ -28,14 +29,17 @@ const apisReducer = (state, action) => {
     case actions.SET_AVAILABLE_INSTANCES: {
       return {
         ...state,
-        availableInstances: action.payload.reduce((acc, instance) => {
-          acc[instance.app_id] = {
-            ...instance,
-            basePath: instance.app_url,
-            defaultLimit,
-          }
-          return acc
-        }, {}),
+        availableInstances: action.payload.reduce(
+          (acc, instance) => {
+            acc[instance.app_id] = {
+              ...instance,
+              basePath: instance.app_url,
+              defaultLimit,
+            }
+            return acc
+          },
+          { ...state.availableInstances }
+        ),
         meta: {
           loading: false,
           error: null,
@@ -65,6 +69,18 @@ const apisReducer = (state, action) => {
       return {
         ...state,
         selected: action.payload,
+      }
+    }
+    case actions.ADD_EXTRA_INSTANCE: {
+      return {
+        ...state,
+        availableInstances: {
+          ...state.availableInstances,
+          extraInstance: {
+            basePath: action.payload,
+            title: 'Supersecret APIS instance',
+          },
+        },
       }
     }
     default:

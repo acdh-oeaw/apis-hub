@@ -14,7 +14,7 @@ import Spinner from '../../elements/Spinner/Spinner'
 
 import styles from './Home.module.css'
 
-const HomePage = ({ navigate }) => {
+const HomePage = ({ location, navigate }) => {
   const [
     {
       availableInstances,
@@ -25,10 +25,35 @@ const HomePage = ({ navigate }) => {
   const dispatchRelations = useApiDispatch()
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const projectUrl = params.get('project-url')
+    if (!projectUrl) return
+    try {
+      new URL(projectUrl)
+      dispatch({
+        type: 'ADD_EXTRA_INSTANCE',
+        payload: projectUrl,
+      })
+      dispatch({
+        type: 'SELECT_INSTANCE',
+        payload: 'extraInstance',
+      })
+      navigate('/networks')
+    } catch (error) {
+      // ignore errors - we are just checking if we get a valid url
+      console.info(
+        'Please provide a valid URL for the "project-url" query param.'
+      )
+    }
+  }, [location, dispatch, navigate])
+
+  useEffect(() => {
     if (!Object.keys(availableInstances).length && !loading && !error) {
       fetchApisInstances(dispatch)
     }
   }, [availableInstances, loading, error, dispatch])
+
+  const { extraInstance, ...instances } = availableInstances
 
   return (
     <>
@@ -41,9 +66,9 @@ const HomePage = ({ navigate }) => {
                 <Spinner width="1em" />
               </div>
             ) : null}
-            {Object.keys(availableInstances).length ? (
+            {Object.keys(instances).length ? (
               <div className={styles.Tiles}>
-                {Object.values(availableInstances).map(instance => (
+                {Object.values(instances).map(instance => (
                   <Tile
                     className={styles.Tile}
                     key={instance.app_id}
