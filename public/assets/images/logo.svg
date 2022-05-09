@@ -1,0 +1,5 @@
+<svg viewBox="0 0 96 32" xmlns="http://www.w3.org/2000/svg">
+  <polygon fill="hsl(344deg 94% 57%)" points="16,32 29.86,24 29.86,8 16,0 2.14,8 2.14,24" />
+  <polygon fill="hsl(43deg 100% 49%)" transform="translate(32)" points="16,32 29.86,24 29.86,8 16,0 2.14,8 2.14,24" />
+  <polygon fill="hsl(197deg 100% 55%)" transform="translate(64)" points="16,32 29.86,24 29.86,8 16,0 2.14,8 2.14,24" />
+</svg>

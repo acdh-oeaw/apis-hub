@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  grid-area: page-footer;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 16px;
+  padding-inline: 16px;
+  font-size: 14px;
+}
+
+.copyright {
+  display: inline-flex;
+  gap: 0.5em;
+  font-size: inherit;
+}

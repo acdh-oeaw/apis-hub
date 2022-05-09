@@ -1,0 +1,7 @@
+.container {
+  position: relative;
+  display: grid;
+  grid-area: visualisation;
+  place-items: center;
+  @apply border-t border-b bg-gray-50;
+}

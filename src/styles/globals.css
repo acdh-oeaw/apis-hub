@@ -1,0 +1,48 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  line-height: 1.5;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-text-size-adjust: none;
+}
+
+html,
+body,
+#__next {
+  block-size: 100%;
+}
+
+a {
+  color: currentColor;
+  text-underline-offset: 0.25em;
+}
+
+canvas,
+img {
+  display: block;
+  max-inline-size: 100%;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+ol[role='list'],
+ul[role='list'] {
+  list-style: none;
+}
+
+p {
+  max-width: 64ch;
+}

@@ -1,0 +1,5 @@
+.container {
+  grid-area: page-header;
+  padding-block: 16px;
+  padding-inline: 16px;
+}

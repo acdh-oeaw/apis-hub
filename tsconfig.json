@@ -1,0 +1,20 @@
+{
+  "extends": "@stefanprobst/tsconfig",
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "app.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.config.mjs",
+    "**/*.config.cjs"
+  ],
+  "exclude": ["node_modules"]
+}
