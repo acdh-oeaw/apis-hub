@@ -7,7 +7,7 @@ import { metadata } from '~/config/metadata.config'
 async function generate() {
   return generateFavicons({
     name: metadata.title,
-    color: '#eb0744;',
+    color: '#fab300;',
     inputFilePath: path.join(process.cwd(), 'public', metadata.logo.href),
     outputFolder: path.join(process.cwd(), 'public'),
   })

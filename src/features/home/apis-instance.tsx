@@ -14,7 +14,14 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
   return (
     <article className={styles['container']}>
       <div className="relative border">
-        <Image alt="" layout="fill" objectFit="cover" priority sizes="820px" src={instance.image} />
+        <Image
+          alt=""
+          layout="fill"
+          objectFit="cover"
+          priority
+          sizes="(max-width: 480px) 420px, 820px"
+          src={instance.image}
+        />
       </div>
       <div className={styles['content']}>
         <header>
