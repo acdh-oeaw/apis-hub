@@ -1,8 +1,8 @@
 :root {
   /** Global color variables. */
-  --color-pink: hsl(344deg 94% 57%);
-  --color-pink-light: hsl(344deg 94% 62%);
-  --color-pink-dark: hsl(344deg 94% 52%);
+  --color-pink: hsl(344deg 94% 47.5%);
+  --color-pink-light: hsl(344deg 94% 52.5%);
+  --color-pink-dark: hsl(344deg 94% 42.5%);
   --color-yellow: hsl(43deg 100% 49%);
   --color-yellow-light: hsl(43deg 100% 54%);
   --color-yellow-dark: hsl(43deg 100% 44%);
