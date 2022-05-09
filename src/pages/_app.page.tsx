@@ -2,6 +2,8 @@ import 'tailwindcss/tailwind.css'
 import '@/styles/index.css'
 
 import { ErrorBoundary } from '@stefanprobst/next-error-boundary'
+import { PageMetadata } from '@stefanprobst/next-page-metadata'
+import { createUrl } from '@stefanprobst/request'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import Head from 'next/head'
 import { Fragment } from 'react'
@@ -12,20 +14,34 @@ import { Providers } from '@/app/providers'
 import { AnalyticsScript } from '@/features/analytics/analytics-script'
 import { reportPageView } from '@/features/analytics/analytics-service'
 import { ToastContainer } from '@/features/toast/toast-container'
+import { useRoute } from '@/lib/use-route'
+import { metadata } from '~/config/metadata.config'
+import { baseUrl } from '~/config/site.config'
 
 export default function App(props: AppProps): JSX.Element {
   const { Component, pageProps } = props
+
+  const route = useRoute()
+  const canonicalUrl = String(createUrl({ baseUrl, pathname: route.pathname }))
 
   return (
     <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>APIS Hub</title>
-        <meta
-          name="description"
-          content="Visually explore social networks in APIS (Austrian Prosopographical | Biographical Information System) datasets."
-        />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
+      <PageMetadata
+        canonicalUrl={canonicalUrl}
+        language={metadata.locale}
+        title={metadata.title}
+        description={metadata.description}
+        openGraph={{
+          images: [{ src: metadata.logo.href, alt: '' }],
+        }}
+        twitter={{}}
+      />
       <AnalyticsScript />
       <ErrorBoundary fallback={<ErrorPage />}>
         <Providers>

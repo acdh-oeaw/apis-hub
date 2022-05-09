@@ -2,9 +2,13 @@ import generateFavicons from '@stefanprobst/favicons'
 import { log } from '@stefanprobst/log'
 import path from 'path'
 
+import { metadata } from '~/config/metadata.config'
+
 async function generate() {
   return generateFavicons({
-    inputFilePath: path.join(process.cwd(), 'public', 'assets', 'images', 'logo.svg'),
+    name: metadata.title,
+    color: '#f82a61',
+    inputFilePath: path.join(process.cwd(), 'public', metadata.logo.href),
     outputFolder: path.join(process.cwd(), 'public'),
   })
 }

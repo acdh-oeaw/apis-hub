@@ -31,3 +31,10 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# auto-generated files
+public/android-chrome-192x192.png
+public/android-chrome-512x512.png
+public/apple-touch-icon.png
+public/favicon.ico
+public/site.webmanifest
