@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from '@/features/home/apis-instance.module.css'
@@ -12,8 +13,8 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 
   return (
     <article className={styles['container']}>
-      <div className={styles['image']}>
-        <img alt="" loading="lazy" src={instance.image} />
+      <div className="relative border">
+        <Image alt="" layout="fill" objectFit="cover" priority sizes="820px" src={instance.image} />
       </div>
       <div className={styles['content']}>
         <header>
