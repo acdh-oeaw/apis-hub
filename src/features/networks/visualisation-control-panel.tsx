@@ -191,7 +191,7 @@ function Button(props: ButtonProps): JSX.Element {
       aria-label={label}
       className={cx(
         'h-6 w-6 flex-shrink-0 hover:text-gray-600 transition-colors',
-        disabled === true && 'text-gray-400',
+        disabled === true && 'text-gray-400 pointer-events-none',
       )}
       title={label}
     >
