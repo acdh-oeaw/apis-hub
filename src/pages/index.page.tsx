@@ -1,4 +1,5 @@
 import { PageContent } from '@/app/page-content'
+import { AddApisInstanceButton } from '@/features/home/add-apis-instance-button'
 import { ApisInstanceList } from '@/features/home/apis-instance-list'
 import { HomeLayout } from '@/features/home/home.layout'
 import { HomePageLeadIn } from '@/features/home/home-page-lead-in'
@@ -19,6 +20,9 @@ export default function HomePage(): JSX.Element {
           these social networks, select one of the available datasets.
         </HomePageLeadIn>
         <ApisInstanceList />
+        <div className="flex justify-end">
+          <AddApisInstanceButton />
+        </div>
       </HomeLayout>
     </PageContent>
   )

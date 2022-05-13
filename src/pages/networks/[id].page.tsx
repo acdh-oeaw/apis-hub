@@ -23,11 +23,7 @@ export default function NetworkPage(): JSX.Element {
   const id = router.query['id'] as string
 
   if (!(id in instances)) {
-    return (
-      <p>
-        Invalid id: {id} {router.asPath}.
-      </p>
-    )
+    return <p className="grid place-items-center text-sm">Invalid id: {id}.</p>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -1,9 +1,9 @@
 import cx from 'clsx'
-import type { ReactNode } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { Spinner } from '@/features/ui/spinner'
 
-interface ButtonProps {
+interface ButtonProps extends Pick<ComponentPropsWithoutRef<'button'>, 'onClick'> {
   children: ReactNode
   isDisabled?: boolean
   isLoading?: boolean
@@ -12,7 +12,7 @@ interface ButtonProps {
 }
 
 export function Button(props: ButtonProps): JSX.Element {
-  const { children, isDisabled = false, isLoading = false, type = 'button' } = props
+  const { children, isDisabled = false, isLoading = false, onClick, type = 'button' } = props
 
   return (
     <button
@@ -23,6 +23,7 @@ export function Button(props: ButtonProps): JSX.Element {
           : 'bg-primary text-white hover:bg-primary-dark focus:ring-primary-light',
       )}
       disabled={isDisabled}
+      onClick={onClick}
       type={type}
     >
       {isLoading ? <Spinner /> : null}

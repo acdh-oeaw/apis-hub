@@ -4,6 +4,7 @@ import cx from 'clsx'
 import type { ReactNode } from 'react'
 import { Fragment, useState } from 'react'
 
+import { Label } from '@/features/ui/label'
 import { createBooleanDataAttribute } from '@/lib/create-boolean-data-attribute'
 import { useIntersectionObserver } from '@/lib/use-intersection-observer'
 
@@ -47,9 +48,7 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
         {({ open }) => {
           return (
             <Fragment>
-              <Listbox.Label className="block text-xs font-medium text-gray-700">
-                {label}
-              </Listbox.Label>
+              <Label as={Listbox.Label}>{label}</Label>
               <div className="mt-1 relative">
                 <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary-light focus:border-primary-light text-sm">
                   <span

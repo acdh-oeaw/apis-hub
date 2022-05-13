@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import cx from 'clsx'
 import Link from 'next/link'
 
 import styles from '@/features/home/apis-instance.module.css'
@@ -11,17 +11,25 @@ interface ApisInstanceProps {
 export function ApisInstance(props: ApisInstanceProps): JSX.Element {
   const { instance } = props
 
+  const hasImage = instance.image.length > 0
+
   return (
     <article className={styles['container']}>
-      <div className="relative border">
-        <Image
-          alt=""
-          layout="fill"
-          objectFit="cover"
-          priority
-          sizes="(max-width: 480px) 420px, 820px"
-          src={instance.image}
-        />
+      <div
+        className={cx(
+          'relative border',
+          !hasImage && 'bg-gradient-to-br from-secondary-light to-primary',
+        )}
+      >
+        {hasImage ? (
+          /** Not using `next/image` because we allow random image urls for added apis instances. */
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            alt=""
+            className="object-cover absolute inset-0 h-full w-full"
+            src={instance.image}
+          />
+        ) : null}
       </div>
       <div className={styles['content']}>
         <header>

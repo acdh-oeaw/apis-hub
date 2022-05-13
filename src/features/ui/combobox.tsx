@@ -4,6 +4,7 @@ import cx from 'clsx'
 import type { ReactNode } from 'react'
 import { Fragment, useState } from 'react'
 
+import { Label } from '@/features/ui/label'
 import { createBooleanDataAttribute } from '@/lib/create-boolean-data-attribute'
 import { useIntersectionObserver } from '@/lib/use-intersection-observer'
 
@@ -47,9 +48,7 @@ export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element
         {({ open }) => {
           return (
             <Fragment>
-              <Combobox.Label className="block text-xs font-medium text-gray-700">
-                {label}
-              </Combobox.Label>
+              <Label as={Combobox.Label}>{label}</Label>
               <div className="relative mt-1">
                 <Combobox.Input
                   autoComplete="off"

@@ -1,3 +1,4 @@
+import { HttpError } from '@stefanprobst/request'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -5,6 +6,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { ApisProvider } from '@/features/apis/apis.context'
 import { GraphsProvider } from '@/features/networks/graphs.context'
+import { toast } from '@/features/toast/toast'
 
 interface ProvidersProps {
   children: ReactNode
@@ -35,6 +37,10 @@ function createQueryClient(): QueryClient {
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
         staleTime: Infinity,
+        onError(error) {
+          const message = error instanceof HttpError ? error.response.statusText : String(error)
+          toast.error(message)
+        },
       },
     },
   })
