@@ -1,4 +1,5 @@
 import cx from 'clsx'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from '@/features/home/apis-instance.module.css'
@@ -22,13 +23,23 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
         )}
       >
         {hasImage ? (
-          /** Not using `next/image` because we allow random image urls for added apis instances. */
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            alt=""
-            className="object-cover absolute inset-0 h-full w-full"
-            src={instance.image}
-          />
+          instance.image.startsWith('/assets/images') ? (
+            <Image
+              alt=""
+              layout="fill"
+              objectFit="cover"
+              priority
+              sizes="(max-width: 480px) 420px, 820px"
+              src={instance.image}
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              alt=""
+              className="absolute inset-o w-full h-full object-cover"
+              src={instance.image}
+            />
+          )
         ) : null}
       </div>
       <div className={styles['content']}>
