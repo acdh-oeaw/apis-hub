@@ -25,7 +25,7 @@ export function NodeDetailsPanel(props: InfoPanelProps): JSX.Element | null {
   const query = useGetApisEntityById(
     instance,
     selectedNodeData != null ? { id: selectedNodeData.id } : null,
-    { enabled: selectedNodeData != null, keepPreviousData: false },
+    { keepPreviousData: false },
   )
 
   useEffect(() => {

@@ -15,11 +15,11 @@ export const colors: {
   fade: { node: string; edge: string }
 } = {
   node: {
-    Event: '#FF3333',
+    Event: '#ff3333',
     Institution: '#009900',
     Person: '#660066',
-    Place: '#FFCC66',
-    Work: '#00CCCC',
+    Place: '#ffcc66',
+    Work: '#00cccc',
   },
   edge: '',
   fade: {

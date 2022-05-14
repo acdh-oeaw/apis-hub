@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { assert } from '@stefanprobst/assert'
 import { isNonEmptyString } from '@stefanprobst/is-nonempty-string'
 import type { HttpError, RequestOptions } from '@stefanprobst/request'
 import { createUrl, request } from '@stefanprobst/request'
-import type { UseInfiniteQueryOptions, UseMutationOptions, UseQueryOptions } from 'react-query'
-import { useInfiniteQuery, useMutation, useQuery } from 'react-query'
+import type { Key, SWRConfiguration } from 'swr'
+import useQuery from 'swr'
+import useImmutableQuery from 'swr/immutable'
+import type { SWRInfiniteConfiguration } from 'swr/infinite'
+import useInfiniteQuery from 'swr/infinite'
+import type { SWRMutationConfiguration } from 'swr/mutation'
+import useMutation from 'swr/mutation'
 
 import { createAuthHeaders } from '@/features/apis/create-auth-headers'
 import { sortEntityTypes } from '@/features/apis/sort-entity-types'
@@ -63,54 +67,47 @@ function getApisEntitySuggestionsByType(
   return request(url, options)
 }
 
-export function useGetApisEntitySuggestionsByType<TData = GetApisEntitySuggestionsByType.Response>(
+export function useGetApisEntitySuggestionsByType(
   instance: ApisInstanceConfig,
   params: GetApisEntitySuggestionsByType.Params | null,
-  options?: UseQueryOptions<GetApisEntitySuggestionsByType.Response, Error, TData, any>,
+  options?: SWRConfiguration<GetApisEntitySuggestionsByType.Response, Error>,
 ) {
-  return useQuery(
+  return useImmutableQuery(
     createQueryCacheKey(instance.id, 'apis-entity-suggestions-by-type', params),
-    () => {
-      assert(params != null)
+    ([, , params]) => {
       return getApisEntitySuggestionsByType(instance, params)
     },
     { keepPreviousData: true, ...options },
   )
 }
 
-export function useGetInfiniteApisEntitySuggestionsByType<
-  TData = GetApisEntitySuggestionsByType.Response,
->(
+export function useGetInfiniteApisEntitySuggestionsByType(
   instance: ApisInstanceConfig,
   params: GetApisEntitySuggestionsByType.Params | null,
-  options?: UseInfiniteQueryOptions<
-    GetApisEntitySuggestionsByType.Response,
-    Error,
-    TData,
-    GetApisEntitySuggestionsByType.Response,
-    any
-  >,
+  options?: SWRInfiniteConfiguration<GetApisEntitySuggestionsByType.Response, Error>,
 ) {
   return useInfiniteQuery(
-    createQueryCacheKey(instance.id, 'apis-infinite-entity-suggestions-by-type', params),
-    async ({ pageParam }) => {
-      assert(params != null)
-      const page = pageParam ?? params.page ?? 1
-      const results = await getApisEntitySuggestionsByType(instance, { ...params, page })
+    (
+      index,
+      previousPageData:
+        | (GetApisEntitySuggestionsByType.Response & { pagination: { page: number } })
+        | null,
+    ) => {
+      if (params == null) return null
+
+      const page =
+        previousPageData == null ? params.page ?? 1 : previousPageData.pagination.page + 1
+      return createQueryCacheKey(instance.id, 'apis-infinite-entity-suggestions-by-type', {
+        ...params,
+        page,
+      })
+    },
+    async ([, , params]) => {
+      const results = await getApisEntitySuggestionsByType(instance, params)
       // UPSTREAM: The APIS autocomplete endpoint only returns a `more` boolean, but not additional pagination info like the current page.
-      return { ...results, pagination: { ...results.pagination, page } }
+      return { ...results, pagination: { ...results.pagination, page: params.page } }
     },
-    {
-      keepPreviousData: true,
-      ...options,
-      getNextPageParam(lastPage, _allPages) {
-        if (lastPage.pagination.more) {
-          const pagination = lastPage.pagination as typeof lastPage.pagination & { page: number }
-          return pagination.page + 1
-        }
-        return undefined
-      },
-    },
+    { keepPreviousData: true, ...options },
   )
 }
 
@@ -145,15 +142,14 @@ function getApisEntityById(
   return request(url, options)
 }
 
-export function useGetApisEntityById<TData = GetApisEntityById.Response>(
+export function useGetApisEntityById(
   instance: ApisInstanceConfig,
   params: GetApisEntityById.Params | null,
-  options?: UseQueryOptions<GetApisEntityById.Response, Error, TData, any>,
+  options?: SWRConfiguration<GetApisEntityById.Response, Error>,
 ) {
-  return useQuery(
+  return useImmutableQuery(
     createQueryCacheKey(instance.id, 'apis-entity-by-id', params),
-    () => {
-      assert(params != null)
+    ([, , params]) => {
       return getApisEntityById(instance, params)
     },
     { keepPreviousData: true, ...options },
@@ -195,15 +191,14 @@ function getApisEntitiesByType(
   return request(url, options)
 }
 
-export function useGetApisEntitiesByType<TData = GetApisEntitiesByType.Response>(
+export function useGetApisEntitiesByType(
   instance: ApisInstanceConfig,
   params: GetApisEntitiesByType.Params | null,
-  options?: UseQueryOptions<GetApisEntitiesByType.Response, Error, TData, any>,
+  options?: SWRConfiguration<GetApisEntitiesByType.Response, Error>,
 ) {
-  return useQuery(
+  return useImmutableQuery(
     createQueryCacheKey(instance.id, 'apis-entities-by-type', params),
-    () => {
-      assert(params != null)
+    ([, , params]) => {
       return getApisEntitiesByType(instance, params)
     },
     { keepPreviousData: true, ...options },
@@ -252,49 +247,36 @@ function getApisRelationTypes(
   return request(url, options)
 }
 
-export function useGetApisRelationTypes<TData = GetApisRelationTypes.Response>(
+export function useGetApisRelationTypes(
   instance: ApisInstanceConfig,
   params: GetApisRelationTypes.Params | null,
-  options?: UseQueryOptions<GetApisRelationTypes.Response, Error, TData, any>,
+  options?: SWRConfiguration<GetApisRelationTypes.Response, Error>,
 ) {
-  return useQuery(
+  return useImmutableQuery(
     createQueryCacheKey(instance.id, 'apis-relation-types', params),
-    () => {
-      assert(params != null)
+    ([, , params]) => {
       return getApisRelationTypes(instance, params)
     },
     { keepPreviousData: true, ...options },
   )
 }
 
-export function useGetInfiniteApisRelationTypes<TData = GetApisRelationTypes.Response>(
+export function useGetInfiniteApisRelationTypes(
   instance: ApisInstanceConfig,
   params: GetApisRelationTypes.Params | null,
-  options?: UseInfiniteQueryOptions<
-    GetApisRelationTypes.Response,
-    Error,
-    TData,
-    GetApisRelationTypes.Response,
-    any
-  >,
+  options?: SWRInfiniteConfiguration<GetApisRelationTypes.Response, Error>,
 ) {
   return useInfiniteQuery(
-    createQueryCacheKey(instance.id, 'apis-infinite-relation-types', params),
-    ({ pageParam }) => {
-      assert(params != null)
-      const offset = pageParam ?? params.offset ?? 0
-      return getApisRelationTypes(instance, { ...params, offset })
+    (index, previousPageData) => {
+      if (params == null) return null
+
+      const offset = previousPageData == null ? 0 : previousPageData.offset * previousPageData.limit
+      return createQueryCacheKey(instance.id, 'apis-infinite-relation-types', { ...params, offset })
     },
-    {
-      keepPreviousData: true,
-      ...options,
-      getNextPageParam(lastPage, _allPages) {
-        if (lastPage.next != null) {
-          return lastPage.offset + lastPage.limit
-        }
-        return undefined
-      },
+    ([, , params]) => {
+      return getApisRelationTypes(instance, params)
     },
+    { keepPreviousData: true, ...options },
   )
 }
 
@@ -333,15 +315,14 @@ function getApisRelationById(
   return request(url, options)
 }
 
-export function useGetApisRelationById<TData = GetApisRelationById.Response>(
+export function useGetApisRelationById(
   instance: ApisInstanceConfig,
   params: GetApisRelationById.Params | null,
-  options?: UseQueryOptions<GetApisRelationById.Response, Error, TData, any>,
+  options?: SWRConfiguration<GetApisRelationById.Response, Error>,
 ) {
   return useQuery(
     createQueryCacheKey(instance.id, 'apis-relation-by-id', params),
-    () => {
-      assert(params != null)
+    ([, , params]) => {
       return getApisRelationById(instance, params)
     },
     { keepPreviousData: true, ...options },
@@ -398,18 +379,25 @@ function getApisRelations(
   return request(url, options)
 }
 
-export function useGetApisRelations<TData = GetApisRelations.Response>(
+export function useGetApisRelations(
   instance: ApisInstanceConfig,
   params: GetApisRelations.Params | null,
-  options?: UseQueryOptions<GetApisRelations.Response, Error, TData, any>,
+  options?: SWRConfiguration<GetApisRelations.Response, Error>,
 ) {
   return useQuery(
     createQueryCacheKey(instance.id, 'apis-relations', params),
-    () => {
-      assert(params != null)
+    ([, , params]) => {
       return getApisRelations(instance, params)
     },
-    { keepPreviousData: true, ...options },
+    {
+      /**
+       * When a query has previously been aborted by navigating away, we want to ensure all pages
+       * are refetched. Otherwise, missing pages would never be requested when the first page has been cached.
+       */
+      dedupingInterval: 0,
+      keepPreviousData: true,
+      ...options,
+    },
   )
 }
 
@@ -443,11 +431,15 @@ function signInWithBasicAuth(
 
 export function useSignInWithBasicAuth(
   instance: ApisInstanceConfig,
-  options?: UseMutationOptions<SignInWithBasicAuth.Response, Error, SignInWithBasicAuth.Body>,
+  options: SWRMutationConfiguration<SignInWithBasicAuth.Response, Error>,
 ) {
-  return useMutation((data) => {
-    return signInWithBasicAuth(instance, data)
-  }, options)
+  return useMutation(
+    [instance.id, 'apis-auth'],
+    (_: Key, { arg: data }: { arg: SignInWithBasicAuth.Body }) => {
+      return signInWithBasicAuth(instance, data)
+    },
+    options,
+  )
 }
 
 //
@@ -465,9 +457,7 @@ export async function getApisErrorMessage(error: HttpError): Promise<string> {
 
 //
 
-function createParamsCacheKey<T extends object>(params: T | null): T | null {
-  if (params == null) return null
-
+function createParamsCacheKey<T extends object>(params: T): T {
   /**
    * Sort entity types for cache key to avoid unnecessary fetches.
    * We also want this for relation types, since we always query on both
@@ -492,6 +482,7 @@ function createQueryCacheKey<T extends object>(
   key: string,
   params: T | null,
 ) {
-  const cacheKey = [id, key, createParamsCacheKey(params)]
+  if (params == null) return null
+  const cacheKey = [id, key, createParamsCacheKey(params)] as const
   return cacheKey
 }

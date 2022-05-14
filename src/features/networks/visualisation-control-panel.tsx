@@ -12,7 +12,7 @@ import {
 import cx from 'clsx'
 import type { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { useQueryClient } from 'react-query'
+import { unstable_serialize, useSWRConfig } from 'swr'
 
 import { Panel } from '@/features/networks/panel'
 import { Separator } from '@/features/networks/separator'
@@ -31,7 +31,7 @@ export function VisualisationControlPanel(
   const { instance } = props
 
   const { layout, renderer } = useVisualisation()
-  const queryClient = useQueryClient()
+  const swr = useSWRConfig()
 
   function onZoomIn() {
     renderer?.getCamera().animatedZoom({ duration: animationDuration, factor: 1.5 })
@@ -73,7 +73,15 @@ export function VisualisationControlPanel(
 
   function onClearGraph() {
     renderer?.getGraph().clear()
-    queryClient.removeQueries([instance.id, 'apis-relations'])
+
+    const cache = swr.cache as Map<string, unknown>
+    const match = unstable_serialize([instance.id, 'apis-relations'])
+
+    for (const key of cache.keys()) {
+      if (key.includes(match)) {
+        cache.delete(key)
+      }
+    }
   }
 
   type LayoutStatus = 'paused' | 'running' | 'stopped'

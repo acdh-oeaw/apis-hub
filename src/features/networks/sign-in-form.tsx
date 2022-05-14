@@ -15,7 +15,7 @@ interface SignInFormProps {
 export function SignInForm(props: SignInFormProps): JSX.Element {
   const { instance } = props
 
-  const signInMutation = useSignInWithBasicAuth(instance)
+  const signInMutation = useSignInWithBasicAuth(instance, {})
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget)
@@ -23,7 +23,7 @@ export function SignInForm(props: SignInFormProps): JSX.Element {
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    signInMutation.mutate(
+    signInMutation.trigger(
       { username, password },
       {
         async onError(error) {
@@ -47,7 +47,7 @@ export function SignInForm(props: SignInFormProps): JSX.Element {
     <form className={styles['form']} onSubmit={onSubmit}>
       <TextField label="Username" name="username" required />
       <TextField label="Password" name="password" required type="password" />
-      <Button isDisabled={signInMutation.isLoading} type="submit">
+      <Button isDisabled={signInMutation.isMutating} type="submit">
         Sign in
       </Button>
     </form>

@@ -43,7 +43,6 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
   const { addEdges } = useGraphs()
   const { searchFilters, setSearchFilters } = useSearchFilters()
   const query = useGetApisRelations(instance, searchFilters, {
-    enabled: searchFilters != null,
     onSuccess(data) {
       const hasMore = data.next != null
       const message = hasMore
@@ -76,15 +75,10 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
         setSearchFilters({ ...searchFilters, offset: data.offset + data.limit } as SearchFilters)
       }
     },
-    /**
-     * When a query has previously been aborted by navigating away, we want to ensure all pages
-     * are refetched. Otherwise, missing pages would never be requested when the first page has been cached.
-     */
-    staleTime: 0,
   })
 
   /** Keep button disabled as long as there are additional edges to fetch. */
-  const isLoading = query.isFetching || query.data?.next != null
+  const isLoading = query.isValidating || query.data?.next != null
 
   return (
     <div className={styles['container']}>
@@ -214,21 +208,27 @@ function EntityComboBox(props: EntityComboBoxProps): JSX.Element {
   })
   const suggestions = useMemo(() => {
     if (query.data == null) return []
-    return query.data.pages.flatMap((page) => {
+    return query.data.flatMap((page) => {
       return page.results
     })
   }, [query.data])
+
+  function fetchNextPage() {
+    query.setSize((size) => {
+      return size + 1
+    })
+  }
 
   return (
     <ComboBox
       getOptionLabel={(option) => {
         return option.text
       }}
-      isLoading={query.isFetching}
+      isLoading={query.isValidating}
       label={label}
       name={name}
       onInputChange={setSearchTerm}
-      onLoadMore={query.fetchNextPage}
+      onLoadMore={fetchNextPage}
       options={suggestions}
     />
   )
@@ -254,11 +254,17 @@ function RelationTypeComboBox(props: RelationTypeComboBoxProps): JSX.Element {
   })
   const relationTypes = useMemo(() => {
     if (query.data == null) return []
-    return query.data.pages.flatMap((page) => {
+    return query.data.flatMap((page) => {
       return page.results
     })
   }, [query.data])
   const useReverseRelationLabel = shouldReverseRelation[sourceEntityType][targetEntityType]
+
+  function fetchNextPage() {
+    query.setSize((size) => {
+      return size + 1
+    })
+  }
 
   return (
     <ComboBox
@@ -269,11 +275,11 @@ function RelationTypeComboBox(props: RelationTypeComboBoxProps): JSX.Element {
         if (useReverseRelationLabel) return `${option.name_reverse} (${option.name})`
         return `${option.name} (${option.name_reverse})`
       }}
-      isLoading={query.isFetching}
+      isLoading={query.isValidating}
       label={label}
       name={name}
       onInputChange={setSearchTerm}
-      onLoadMore={query.fetchNextPage}
+      onLoadMore={fetchNextPage}
       options={relationTypes}
     />
   )
