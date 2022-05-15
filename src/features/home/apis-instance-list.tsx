@@ -8,10 +8,10 @@ export function ApisInstanceList(): JSX.Element {
 
   return (
     <ul className={styles['container']} role="list">
-      {Object.values(instances).map((instance) => {
+      {Object.values(instances).map((instance, index) => {
         return (
           <li key={instance.id}>
-            <ApisInstance instance={instance} />
+            <ApisInstance index={index} instance={instance} />
           </li>
         )
       })}

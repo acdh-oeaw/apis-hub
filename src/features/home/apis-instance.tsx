@@ -6,11 +6,12 @@ import styles from '@/features/home/apis-instance.module.css'
 import type { ApisInstanceConfig } from '~/config/apis.config'
 
 interface ApisInstanceProps {
+  index: number
   instance: ApisInstanceConfig
 }
 
 export function ApisInstance(props: ApisInstanceProps): JSX.Element {
-  const { instance } = props
+  const { index, instance } = props
 
   const hasImage = instance.image.length > 0
 
@@ -28,7 +29,8 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
               alt=""
               layout="fill"
               objectFit="cover"
-              priority
+              /** Preload first three images. */
+              priority={index < 3}
               sizes="(max-width: 480px) 420px, 820px"
               src={instance.image}
             />
