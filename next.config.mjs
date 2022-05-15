@@ -51,6 +51,9 @@ const config = {
 
     return headers
   },
+  images: {
+    deviceSizes: [420, 620, 820],
+  },
   pageExtensions: ['api.ts', 'page.tsx'],
   reactStrictMode: true,
 }
