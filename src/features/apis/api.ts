@@ -492,6 +492,6 @@ function createQueryCacheKey<T extends object>(
   key: string,
   params: T | null,
 ) {
-  const cacheKey = [id, key, createParamsCacheKey(params)]
+  const cacheKey = [id, key, createParamsCacheKey(params)] as const
   return cacheKey
 }
