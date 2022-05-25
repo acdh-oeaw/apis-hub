@@ -34,7 +34,8 @@
     "yarn.lock": true
   },
   "stylelint.enable": true,
-  "tailwindCSS.validate": false,
+  "tailwindCSS.validate": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.startupEditor": "readme",
   "workbench.tree.indent": 16,

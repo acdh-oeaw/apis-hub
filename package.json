@@ -10,7 +10,7 @@
     "docker:dev": "docker run --rm --init -u `id -u`:`id -g` -v `pwd`:/app -w /app -p 3000:3000 node:16-slim npm run dev",
     "format": "prettier . --ignore-path .gitignore --list-different",
     "format:fix": "npm run format -- --write",
-    "generate:favicons": "ts-script scripts/generate-favicons.ts",
+    "generate:favicons": "ts-script scripts/generate-favicons",
     "lint": "run-p lint:*:check",
     "lint:fix": "run-p lint:*:fix",
     "lint:code:check": "eslint . --cache --cache-location .next/cache/eslint/ --ext cjs,js,mjs,ts,tsx --ignore-path .gitignore",
