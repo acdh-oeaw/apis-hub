@@ -16,13 +16,13 @@ export function Button(props: ButtonProps): JSX.Element {
 
   return (
     <button
+      aria-disabled={isDisabled}
       className={cx(
         'inline-flex gap-2 items-center px-4 py-3 leading-none font-semibold justify-center text-sm rounded transition-colors focus:outline-none focus:ring-1',
         isDisabled
           ? 'bg-gray-100 text-gray-500 pointer-events-none focus:ring-gray-600'
           : 'bg-primary text-white hover:bg-primary-dark focus:ring-primary-light',
       )}
-      disabled={isDisabled}
       onClick={onClick}
       type={type}
     >
