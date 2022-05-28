@@ -5,7 +5,6 @@ import type { ReactNode } from 'react'
 import { Fragment, useState } from 'react'
 
 import { Label } from '@/features/ui/label'
-import { createBooleanDataAttribute } from '@/lib/create-boolean-data-attribute'
 import { useIntersectionObserver } from '@/lib/use-intersection-observer'
 
 interface Option {
@@ -70,39 +69,21 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
                   >
                     <Listbox.Options className="absolute z-20 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none text-sm">
                       {options.map((option) => {
+                        const label = getOptionLabel(option)
+
                         return (
                           <Listbox.Option key={option.id} as={Fragment} value={option}>
-                            {({ active, selected }) => {
-                              const label = getOptionLabel(option)
-
-                              return (
-                                <li
-                                  className={cx(
-                                    active ? 'text-white bg-primary' : 'text-gray-900',
-                                    'cursor-default select-none relative py-2 pl-3 pr-9',
-                                  )}
-                                  data-active={createBooleanDataAttribute(active)}
-                                  data-selected={createBooleanDataAttribute(selected)}
-                                >
-                                  <span
-                                    className={cx(selected && 'font-semibold', 'block truncate')}
-                                    title={label}
-                                  >
-                                    {label}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={cx(
-                                        active ? 'text-white' : 'text-primary',
-                                        'absolute inset-y-0 right-0 flex items-center pr-4',
-                                      )}
-                                    >
-                                      <CheckIcon aria-hidden className="h-5 w-5" />
-                                    </span>
-                                  ) : null}
-                                </li>
-                              )
-                            }}
+                            <li className="ui-active:text-white ui-active:bg-primary ui-not-active:text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9">
+                              <span
+                                className="ui-selected:font-semibold ui-not-selected:block ui-not-selected:truncate"
+                                title={label}
+                              >
+                                {label}
+                              </span>
+                              <span className="ui-active:text-white ui-not-active:text-primary absolute inset-y-0 right-0 hidden ui-active:flex items-center pr-4">
+                                <CheckIcon aria-hidden className="h-5 w-5" />
+                              </span>
+                            </li>
                           </Listbox.Option>
                         )
                       })}

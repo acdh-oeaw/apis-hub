@@ -1,11 +1,9 @@
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import cx from 'clsx'
 import type { ReactNode } from 'react'
 import { Fragment, useState } from 'react'
 
 import { Label } from '@/features/ui/label'
-import { createBooleanDataAttribute } from '@/lib/create-boolean-data-attribute'
 import { useIntersectionObserver } from '@/lib/use-intersection-observer'
 
 interface Option {
@@ -75,39 +73,21 @@ export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element
                   >
                     <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
                       {options.map((option) => {
+                        const label = getOptionLabel(option)
+
                         return (
                           <Combobox.Option key={option.id} as={Fragment} value={option}>
-                            {({ active, selected }) => {
-                              const label = getOptionLabel(option)
-
-                              return (
-                                <li
-                                  className={cx(
-                                    'relative cursor-default select-none py-2 pl-3 pr-9',
-                                    active ? 'bg-primary text-white' : 'text-gray-900',
-                                  )}
-                                  data-active={createBooleanDataAttribute(active)}
-                                  data-selected={createBooleanDataAttribute(selected)}
-                                >
-                                  <span
-                                    className={cx('block truncate', selected && 'font-semibold')}
-                                    title={label}
-                                  >
-                                    {label}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={cx(
-                                        'absolute inset-y-0 right-0 flex items-center pr-4',
-                                        active ? 'text-white' : 'text-primary',
-                                      )}
-                                    >
-                                      <CheckIcon aria-hidden className="h-5 w-5" />
-                                    </span>
-                                  ) : null}
-                                </li>
-                              )
-                            }}
+                            <li className="relative cursor-default select-none py-2 pl-3 pr-9 ui-active:bg-primary ui-active:text-white ui-not-active:text-gray-900">
+                              <span
+                                className="block truncate ui-selected:font-semibold"
+                                title={label}
+                              >
+                                {label}
+                              </span>
+                              <span className="absolute inset-y-0 right-0 hidden ui-selected:flex items-center pr-4 ui-active:text-white ui-not-active:text-primary">
+                                <CheckIcon aria-hidden className="h-5 w-5" />
+                              </span>
+                            </li>
                           </Combobox.Option>
                         )
                       })}
