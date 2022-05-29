@@ -9,7 +9,6 @@ WORKDIR /app
 USER node
 
 COPY --chown=node:node package.json package-lock.json ./
-COPY --chown=node:node patches ./patches
 
 RUN npm install --ci --no-audit --no-fund
 
