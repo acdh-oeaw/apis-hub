@@ -30,7 +30,7 @@
   },
   "packageManager": "npm@8.5.0",
   "dependencies": {
-    "@headlessui/react": "^1.6.2",
+    "@headlessui/react": "^1.6.4",
     "@heroicons/react": "^1.0.6",
     "@next/bundle-analyzer": "^12.1.6",
     "@stefanprobst/assert": "^1.0.3",
@@ -48,7 +48,7 @@
     "next": "^12.1.6",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-query": "^4.0.0-beta.13",
+    "react-query": "^4.0.0-beta.15",
     "react-toastify": "^9.0.1",
     "sharp": "^0.30.5",
     "sigma": "^2.3.1"
