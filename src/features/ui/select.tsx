@@ -73,14 +73,14 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
 
                         return (
                           <Listbox.Option key={option.id} as={Fragment} value={option}>
-                            <li className="ui-active:text-white ui-active:bg-primary ui-not-active:text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9">
+                            <li className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 ui-active:text-white ui-active:bg-primary">
                               <span
-                                className="ui-selected:font-semibold ui-not-selected:block ui-not-selected:truncate"
+                                className="block truncate ui-selected:font-semibold"
                                 title={label}
                               >
                                 {label}
                               </span>
-                              <span className="ui-active:text-white ui-not-active:text-primary absolute inset-y-0 right-0 hidden ui-active:flex items-center pr-4">
+                              <span className="text-primary absolute inset-y-0 right-0 hidden items-center pr-4 ui-active:text-white ui-active:flex">
                                 <CheckIcon aria-hidden className="h-5 w-5" />
                               </span>
                             </li>

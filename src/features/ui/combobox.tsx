@@ -77,14 +77,14 @@ export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element
 
                         return (
                           <Combobox.Option key={option.id} as={Fragment} value={option}>
-                            <li className="relative cursor-default select-none py-2 pl-3 pr-9 ui-active:bg-primary ui-active:text-white ui-not-active:text-gray-900">
+                            <li className="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 ui-active:bg-primary ui-active:text-white">
                               <span
                                 className="block truncate ui-selected:font-semibold"
                                 title={label}
                               >
                                 {label}
                               </span>
-                              <span className="absolute inset-y-0 right-0 hidden ui-selected:flex items-center pr-4 ui-active:text-white ui-not-active:text-primary">
+                              <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-primary ui-active:text-white ui-selected:flex">
                                 <CheckIcon aria-hidden className="h-5 w-5" />
                               </span>
                             </li>
