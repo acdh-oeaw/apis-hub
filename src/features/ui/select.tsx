@@ -80,7 +80,7 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
                               >
                                 {label}
                               </span>
-                              <span className="text-primary absolute inset-y-0 right-0 hidden items-center pr-4 ui-active:text-white ui-active:flex">
+                              <span className="text-primary absolute inset-y-0 right-0 hidden items-center pr-4 ui-active:text-white ui-selected:flex">
                                 <CheckIcon aria-hidden className="h-5 w-5" />
                               </span>
                             </li>
