@@ -62,7 +62,7 @@
     "@stefanprobst/favicons": "^2.0.4",
     "@stefanprobst/prettier-config": "^2.0.2",
     "@stefanprobst/stylelint-config": "^2.2.0",
-    "@stefanprobst/ts-script": "^2.0.0",
+    "@stefanprobst/ts-script": "^2.0.4",
     "@stefanprobst/tsconfig": "^2.1.0",
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
