@@ -13,7 +13,7 @@ import { VisualisationControlPanel } from '@/features/networks/visualisation-con
 
 export default function NetworkPage(): JSX.Element {
   const router = useRouter()
-  const { config } = useApis()
+  const { config, signIn } = useApis()
   const { instances } = config
 
   if (!router.isReady) {
@@ -30,14 +30,14 @@ export default function NetworkPage(): JSX.Element {
   const instance = instances[id]!
 
   if (instance.access.type === 'restricted' && instance.access.user == null) {
-    return <SignInPage instance={instance} />
+    return <SignInPage instance={instance} signIn={signIn} />
   }
 
   return (
     <NetworksPageContainer>
       <SearchBar instance={instance} />
       <Visualisation instance={instance}>
-        <div className="z-10 absolute top-0 bottom-0 grid right-0 m-6 grid gap-2 content-between pointer-events-none">
+        <div className="z-10 absolute top-0 bottom-0 grid right-0 m-6 gap-2 content-between pointer-events-none">
           <div className="grid gap-2 pointer-events-auto">
             <SearchPanel />
             <NodeDetailsPanel instance={instance} />

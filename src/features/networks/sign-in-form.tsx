@@ -6,14 +6,15 @@ import styles from '@/features/networks/sign-in-form.module.css'
 import { toast } from '@/features/toast/toast'
 import { Button } from '@/features/ui/button'
 import { TextField } from '@/features/ui/textfield'
-import type { ApisInstanceConfig } from '~/config/apis.config'
+import type { ApisInstanceConfig, UserAuth } from '~/config/apis.config'
 
 interface SignInFormProps {
   instance: ApisInstanceConfig
+  signIn: (instance: ApisInstanceConfig, userAuth: UserAuth) => void
 }
 
 export function SignInForm(props: SignInFormProps): JSX.Element {
-  const { instance } = props
+  const { instance, signIn } = props
 
   const signInMutation = useSignInWithBasicAuth(instance)
 
@@ -35,6 +36,7 @@ export function SignInForm(props: SignInFormProps): JSX.Element {
           }
         },
         onSuccess() {
+          signIn(instance, { username, password })
           toast.info('Signed in ' + username)
         },
       },

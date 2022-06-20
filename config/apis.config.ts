@@ -1,5 +1,10 @@
 import type { UrlString } from '@/lib/types'
 
+export interface UserAuth {
+  username: string
+  password: string
+}
+
 export interface ApisInstanceConfig {
   id: string
   title: string
@@ -7,9 +12,7 @@ export interface ApisInstanceConfig {
   description: string
   url: UrlString
   image: UrlString
-  access:
-    | { type: 'public' }
-    | { type: 'restricted'; user: { username: string; password: string } | null }
+  access: { type: 'public' } | { type: 'restricted'; user: UserAuth | null }
 }
 
 const apis: ApisInstanceConfig = {

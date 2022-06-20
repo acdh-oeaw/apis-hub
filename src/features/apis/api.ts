@@ -430,7 +430,7 @@ function signInWithBasicAuth(
 ): Promise<SignInWithBasicAuth.Response> {
   const url = createUrl({
     baseUrl: instance.url,
-    pathname: '/apis/api',
+    pathname: '/apis/api/',
   })
   const options: RequestOptions = {
     headers: { authorization: createBasicAuth(data.username, data.password) },

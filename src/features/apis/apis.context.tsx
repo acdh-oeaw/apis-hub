@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { createContext, useContext, useMemo, useState } from 'react'
 
-import type { ApisInstanceConfig } from '~/config/apis.config'
+import type { ApisInstanceConfig, UserAuth } from '~/config/apis.config'
 import { config } from '~/config/apis.config'
 
 interface ApisConfig {
@@ -13,6 +13,7 @@ const initialState: ApisConfig = config
 interface ApisContextValue {
   config: ApisConfig
   addInstance: (instance: ApisInstanceConfig) => void
+  signIn: (instance: ApisInstanceConfig, user: UserAuth) => void
 }
 
 const ApisContext = createContext<ApisContextValue | null>(null)
@@ -36,9 +37,14 @@ export function ApisProvider(props: ApisProviderProps): JSX.Element {
       })
     }
 
+    function signIn(instance: ApisInstanceConfig, user: UserAuth) {
+      addInstance({ ...instance, access: { type: 'restricted', user } })
+    }
+
     return {
-      config,
       addInstance,
+      config,
+      signIn,
     }
   }, [config])
 
