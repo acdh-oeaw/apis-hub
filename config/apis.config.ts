@@ -27,17 +27,6 @@ const apis: ApisInstanceConfig = {
   access: { type: 'restricted', user: null },
 }
 
-const ica: ApisInstanceConfig = {
-  id: 'ica',
-  title: 'Ideas Crossing the Atlantic',
-  subtitle: 'Theories, Normative Conceptions, and Cultural Images',
-  description:
-    'The resurgence of nationalisms worldwide has reignited scholarly interest in the dissemination of ideas and cultural concepts across political and geographic borders and especially across the Atlantic. This volume is the result of an international gathering held in December 2016 at the Austrian Academy of Sciences, which was devoted to the exploration of (voluntary and enforced) transcultural migrations before, during, and after the two World Wars. In 25 incisive, wide-ranging chapters, scholars from Austria, Canada, the Czech Republic, France, Germany, Hungary, Italy, Poland, Slovenia, Spain, the United Kingdom, and the United States, revisit a century marked by international connectedness and productive cross-fertilization in the fields of literature, philosophy, science, and the arts. Taken as a whole, these essays offer a powerful antidote to new attempts to redraw the world’s boundaries according to ethnocultural dividing lines.',
-  url: 'https://ica.acdh-dev.oeaw.ac.at',
-  image: '/assets/images/ica.jpg',
-  access: { type: 'restricted', user: null },
-}
-
 const mpr: ApisInstanceConfig = {
   id: 'mpr',
   title: 'Modulare Prosopographische Registratur (MPR)',
@@ -62,7 +51,7 @@ const pmb: ApisInstanceConfig = {
 }
 
 export const config = {
-  instances: { apis, ica, mpr, pmb },
+  instances: { apis, mpr, pmb },
 }
 
 /** Default `limit` search parameter. */
