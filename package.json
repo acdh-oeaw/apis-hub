@@ -30,7 +30,7 @@
   },
   "packageManager": "npm@8.5.0",
   "dependencies": {
-    "@headlessui/react": "^0.0.0-insiders.1d53ac3",
+    "@headlessui/react": "^0.0.0-insiders.63417d5",
     "@heroicons/react": "^1.0.6",
     "@next/bundle-analyzer": "^12.1.6",
     "@stefanprobst/assert": "^1.0.3",
