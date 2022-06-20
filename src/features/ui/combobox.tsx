@@ -10,7 +10,7 @@ interface Option {
   id: number | string
 }
 
-interface ComboboxProps<T extends Option> {
+interface ComboBoxProps<T extends Option> {
   getOptionLabel: (option: T) => string
   initialValue?: T
   isLoading?: boolean
@@ -22,7 +22,7 @@ interface ComboboxProps<T extends Option> {
   placeholder?: string
 }
 
-export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element {
+export function ComboBox<T extends Option>(props: ComboBoxProps<T>): JSX.Element {
   const {
     getOptionLabel,
     initialValue = null,
@@ -50,7 +50,7 @@ export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element
               <div className="relative mt-1">
                 <Combobox.Input
                   autoComplete="off"
-                  className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm placeholder:text-gray-500 focus:border-primary-light focus:outline-none focus:ring-1 focus:ring-primary-light text-sm"
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm shadow-sm placeholder:text-gray-500 focus:border-primary-light focus:outline-none focus:ring-1 focus:ring-primary-light"
                   displayValue={(option: T | null) => {
                     if (option == null) return ''
                     return getOptionLabel(option)
@@ -71,7 +71,7 @@ export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
+                    <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {options.map((option) => {
                         const label = getOptionLabel(option)
 
@@ -84,7 +84,7 @@ export function ComboBox<T extends Option>(props: ComboboxProps<T>): JSX.Element
                               >
                                 {label}
                               </span>
-                              <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-primary ui-active:text-white ui-selected:flex">
+                              <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-primary ui-selected:flex ui-active:text-white">
                                 <CheckIcon aria-hidden className="h-5 w-5" />
                               </span>
                             </li>
