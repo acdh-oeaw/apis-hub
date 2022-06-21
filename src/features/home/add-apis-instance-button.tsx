@@ -45,38 +45,51 @@ export function AddApisInstanceButton(): JSX.Element {
   return (
     <Fragment>
       <Button onClick={dialog.open}>Add APIS instance</Button>
-      <Transition
-        show={dialog.isOpen}
-        enter="transition duration-100 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
-        <Dialog className="relative z-30" open={dialog.isOpen} onClose={dialog.close}>
-          <div className="fixed inset-0 bg-black/30" aria-hidden />
-          <div className="fixed inset-0 flex items-center justify-center p-4">
-            <Dialog.Panel className="w-full max-w-md rounded shadow-lg bg-white p-8 grid gap-4">
-              <Dialog.Title>Add APIS instance</Dialog.Title>
-              <form className="grid gap-4" onSubmit={onSubmit}>
-                <div className="grid gap-2">
-                  <TextField label="Title" name="title" required />
-                  <TextField label="Subtitle" name="subtitle" />
-                  <TextArea label="Description" name="description" rows={4} />
-                  <TextField label="URL" name="url" required type="url" />
-                  <TextField label="Image URL" name="image" type="url" />
-                  <CheckBox label="Requires authentication?" name="auth" />
-                </div>
-                <div className="flex justify-end gap-4">
-                  <Button onClick={dialog.close}>Cancel</Button>
-                  <Button type="submit">Submit</Button>
-                </div>
-              </form>
-            </Dialog.Panel>
+      <Transition.Root appear as={Fragment} show={dialog.isOpen}>
+        <Dialog as="div" className="relative z-dialog" onClose={dialog.close}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-500/25 backdrop-blur-sm transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 z-dialog overflow-y-auto p-4 sm:p-6 md:p-20">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="grid w-full max-w-md gap-4 rounded bg-white p-8 shadow-lg">
+                <Dialog.Title>Add APIS instance</Dialog.Title>
+                <form className="grid gap-4" onSubmit={onSubmit}>
+                  <div className="grid gap-2">
+                    <TextField label="Title" name="title" required />
+                    <TextField label="Subtitle" name="subtitle" />
+                    <TextArea label="Description" name="description" rows={4} />
+                    <TextField label="URL" name="url" required type="url" />
+                    <TextField label="Image URL" name="image" type="url" />
+                    <CheckBox label="Requires authentication?" name="auth" />
+                  </div>
+                  <div className="flex justify-end gap-4">
+                    <Button onClick={dialog.close}>Cancel</Button>
+                    <Button type="submit">Submit</Button>
+                  </div>
+                </form>
+              </Dialog.Panel>
+            </Transition.Child>
           </div>
         </Dialog>
-      </Transition>
+      </Transition.Root>
     </Fragment>
   )
 }
