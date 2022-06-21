@@ -486,7 +486,7 @@ function createParamsCacheKey<T extends object>(params: T | null): T | null {
   return params
 }
 
-function createQueryCacheKey<T extends object>(
+export function createQueryCacheKey<T extends object>(
   id: ApisInstanceConfig['id'],
   key: string,
   params: T | null,

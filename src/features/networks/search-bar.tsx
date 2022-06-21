@@ -2,8 +2,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import type { FormEvent } from 'react'
 import { Fragment, useEffect, useMemo, useState } from 'react'
+import { useQueryClient } from 'react-query'
 
 import {
+  createQueryCacheKey,
   useGetApisRelations,
   useGetInfiniteApisEntitySuggestionsByType,
   useGetInfiniteApisRelationTypes,
@@ -44,6 +46,7 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
 
   const { addEdges } = useGraphs()
   const { searchFilters, setSearchFilters } = useSearchFilters()
+  const queryClient = useQueryClient()
   const dialog = useDialogState()
   const [dialogProps, setDialogProps] = useState({
     count: 0,
@@ -83,6 +86,8 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
 
         if (data.next != null) {
           setSearchFilters({ ...searchFilters, offset: data.offset + data.limit } as SearchFilters)
+        } else {
+          setSearchFilters(null)
         }
       }
 
@@ -92,9 +97,15 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
           onSuccess() {
             onSuccess()
             dialog.close()
+            setDialogProps({ count: 0, onSuccess: dialog.close, onAbort: dialog.close })
           },
           onAbort() {
             dialog.close()
+            setSearchFilters(null)
+            queryClient.resetQueries(
+              createQueryCacheKey(instance.id, 'apis-relations', searchFilters),
+            )
+            setDialogProps({ count: 0, onSuccess: dialog.close, onAbort: dialog.close })
           },
         })
         dialog.open()
@@ -165,12 +176,12 @@ function WarningDialog(props: WarningDialogProps): JSX.Element {
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel className="mx-auto grid max-w-2xl transform gap-4 divide-y divide-gray-100 overflow-hidden rounded-md bg-white p-4 shadow-2xl ring-1 ring-black/5 transition-all">
-              <Dialog.Title className="text-sm">Warning</Dialog.Title>
-              You are attempting to add {count} new edges to the graph. Do you want to continue or
-              abort and refine your search query?
-              <div className="justify-self-end">
-                <Button onClick={onSuccess}>Continue</Button>
+              <Dialog.Title className="text-xl font-medium">Warning</Dialog.Title>
+              You are attempting to add {count} edges to the graph. Do you want to continue or abort
+              and refine your search query?
+              <div className="flex gap-2 justify-self-end">
                 <Button onClick={onAbort}>Abort</Button>
+                <Button onClick={onSuccess}>Continue</Button>
               </div>
             </Dialog.Panel>
           </Transition.Child>
