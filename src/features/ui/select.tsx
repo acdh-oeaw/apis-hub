@@ -48,14 +48,14 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
           return (
             <Fragment>
               <Label as={Listbox.Label}>{label}</Label>
-              <div className="mt-1 relative">
-                <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary-light focus:border-primary-light text-sm">
+              <div className="relative mt-1">
+                <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left text-sm shadow-sm focus:border-primary-light focus:outline-none focus:ring-1 focus:ring-primary-light">
                   <span
                     className={cx('block truncate', shouldDisplayPlaceholder && 'text-gray-500')}
                   >
                     {shouldDisplayPlaceholder ? placeholder : getOptionLabel(selectedOption)}
                   </span>
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <SelectorIcon aria-hidden className="h-5 w-5 text-gray-400" />
                   </span>
                 </Listbox.Button>
@@ -67,20 +67,20 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <Listbox.Options className="absolute z-20 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none text-sm">
+                    <Listbox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-none">
                       {options.map((option) => {
                         const label = getOptionLabel(option)
 
                         return (
                           <Listbox.Option key={option.id} as={Fragment} value={option}>
-                            <li className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 ui-active:text-white ui-active:bg-primary">
+                            <li className="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 ui-active:bg-primary ui-active:text-white">
                               <span
                                 className="block truncate ui-selected:font-semibold"
                                 title={label}
                               >
                                 {label}
                               </span>
-                              <span className="text-primary absolute inset-y-0 right-0 hidden items-center pr-4 ui-active:text-white ui-selected:flex">
+                              <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-primary ui-selected:flex ui-active:text-white">
                                 <CheckIcon aria-hidden className="h-5 w-5" />
                               </span>
                             </li>

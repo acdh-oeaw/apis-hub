@@ -71,7 +71,7 @@ export function ComboBox<T extends Option>(props: ComboBoxProps<T>): JSX.Element
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-none">
                       {options.map((option) => {
                         const label = getOptionLabel(option)
 

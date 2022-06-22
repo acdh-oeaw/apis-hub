@@ -1,8 +1,11 @@
+import { Dialog, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import type { FormEvent } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
+import { useQueryClient } from 'react-query'
 
 import {
+  createQueryCacheKey,
   useGetApisRelations,
   useGetInfiniteApisEntitySuggestionsByType,
   useGetInfiniteApisRelationTypes,
@@ -19,6 +22,7 @@ import { toast } from '@/features/toast/toast'
 import { Button } from '@/features/ui/button'
 import { ComboBox } from '@/features/ui/combobox'
 import { Select } from '@/features/ui/select'
+import { useDialogState } from '@/features/ui/use-dialog-state'
 import { createKey } from '@/lib/create-key'
 import { useDebouncedValue } from '@/lib/use-debounced-value'
 import type { ApisInstanceConfig } from '~/config/apis.config'
@@ -42,38 +46,71 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
 
   const { addEdges } = useGraphs()
   const { searchFilters, setSearchFilters } = useSearchFilters()
+  const queryClient = useQueryClient()
+  const dialog = useDialogState()
+  const [dialogProps, setDialogProps] = useState({
+    count: 0,
+    onSuccess: dialog.close,
+    onAbort: dialog.close,
+  })
   const query = useGetApisRelations(instance, searchFilters, {
     enabled: searchFilters != null,
     onSuccess(data) {
-      const hasMore = data.next != null
-      const message = hasMore
-        ? `Loaded ${data.offset + data.limit} of ${data.count} edges.`
-        : `Loaded ${data.count} edges.`
+      function onSuccess() {
+        const hasMore = data.next != null
+        const message = hasMore
+          ? `Loaded ${data.offset + data.limit} of ${data.count} edges.`
+          : `Loaded ${data.count} edges.`
 
-      if (toast.isActive(toastId)) {
-        if (hasMore) {
-          toast.update(toastId, { isLoading: true, render: message, type: 'default' })
+        if (toast.isActive(toastId)) {
+          if (hasMore) {
+            toast.update(toastId, { isLoading: true, render: message, type: 'default' })
+          } else {
+            toast.update(toastId, {
+              autoClose: 5000,
+              closeButton: true,
+              isLoading: false,
+              render: message,
+              type: 'info',
+            })
+          }
         } else {
-          toast.update(toastId, {
-            autoClose: 5000,
-            closeButton: true,
-            isLoading: false,
-            render: message,
-            type: 'info',
-          })
+          if (hasMore) {
+            toast.loading(message, { toastId, type: 'default' })
+          } else {
+            toast.info(message, { autoClose: 5000, closeButton: true, toastId })
+          }
         }
-      } else {
-        if (hasMore) {
-          toast.loading(message, { toastId, type: 'default' })
+
+        addEdges(instance.id, data.results, getEdgeLabel, getEdgeColor, getNodeLabel, getNodeColor)
+
+        if (data.next != null) {
+          setSearchFilters({ ...searchFilters, offset: data.offset + data.limit } as SearchFilters)
         } else {
-          toast.info(message, { autoClose: 5000, closeButton: true, toastId })
+          setSearchFilters(null)
         }
       }
 
-      addEdges(instance.id, data.results, getEdgeLabel, getEdgeColor, getNodeLabel, getNodeColor)
-
-      if (data.next != null) {
-        setSearchFilters({ ...searchFilters, offset: data.offset + data.limit } as SearchFilters)
+      if (data.offset === 0 && data.count >= 1000) {
+        setDialogProps({
+          count: data.count,
+          onSuccess() {
+            onSuccess()
+            dialog.close()
+            setDialogProps({ count: 0, onSuccess: dialog.close, onAbort: dialog.close })
+          },
+          onAbort() {
+            dialog.close()
+            setSearchFilters(null)
+            queryClient.resetQueries(
+              createQueryCacheKey(instance.id, 'apis-relations', searchFilters),
+            )
+            setDialogProps({ count: 0, onSuccess: dialog.close, onAbort: dialog.close })
+          },
+        })
+        dialog.open()
+      } else {
+        onSuccess()
       }
     },
     /**
@@ -93,7 +130,64 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
         isLoading={isLoading}
         onChangeSearchFilters={setSearchFilters}
       />
+      <WarningDialog
+        count={dialogProps.count}
+        isOpen={dialog.isOpen}
+        onAbort={dialogProps.onAbort}
+        onSuccess={dialogProps.onSuccess}
+      />
     </div>
+  )
+}
+
+interface WarningDialogProps {
+  isOpen: boolean
+  onAbort: () => void
+  count: number
+  onSuccess: () => void
+}
+
+function WarningDialog(props: WarningDialogProps): JSX.Element {
+  const { isOpen, onAbort, count, onSuccess } = props
+
+  return (
+    <Transition.Root appear as={Fragment} show={isOpen}>
+      <Dialog as="div" className="relative z-dialog" onClose={onAbort}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500/25 backdrop-blur-sm transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-dialog overflow-y-auto p-4 sm:p-6 md:p-20">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel className="mx-auto grid max-w-2xl transform gap-4 divide-y divide-gray-100 overflow-hidden rounded-md bg-white p-4 shadow-2xl ring-1 ring-black/5 transition-all">
+              <Dialog.Title className="text-xl font-medium">Warning</Dialog.Title>
+              You are attempting to add {count} edges to the graph. Do you want to continue or abort
+              and refine your search query?
+              <div className="flex gap-2 justify-self-end">
+                <Button onClick={onAbort}>Abort</Button>
+                <Button onClick={onSuccess}>Continue</Button>
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
   )
 }
 

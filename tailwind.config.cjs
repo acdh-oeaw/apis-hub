@@ -1,5 +1,15 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.tsx'],
+  corePlugins: {
+    textOpacity: false,
+    backgroundOpacity: false,
+    borderOpacity: false,
+    divideOpacity: false,
+    placeholderOpacity: false,
+    ringOpacity: false,
+  },
+  plugins: [require('@headlessui/tailwindcss')],
   theme: {
     extend: {
       colors: {
@@ -13,7 +23,9 @@ module.exports = {
         'tertiary-light': 'var(--color-tertiary-light)',
         'tertiary-dark': 'var(--color-tertiary-dark)',
       },
+      zIndex: {
+        dialog: 'var(--z-dialog)',
+      },
     },
   },
-  plugins: [require('@headlessui/tailwindcss')],
 }
