@@ -59,7 +59,7 @@ export function AddApisInstanceButton(): JSX.Element {
             <div className="fixed inset-0 bg-gray-500/25 backdrop-blur-sm transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed inset-0 z-dialog overflow-y-auto p-4 sm:p-6 md:p-20">
+          <div className="fixed inset-0 z-dialog grid place-items-center overflow-y-auto p-4 sm:p-6 md:p-20">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
