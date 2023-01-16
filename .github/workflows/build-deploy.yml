@@ -51,7 +51,7 @@ jobs:
 
       - name: Deploy to cluster
         env:
-          RANCHER_PROJECT_ID: c-zdbh8:p-d4v6m
+          RANCHER_PROJECT_ID: c-m-6hwgqq2g:p-hhl7b
           RANCHER_DEPLOYMENT: apis-hub:apis-hub
         run: |
           echo 'https://rancher.acdh-dev.oeaw.ac.at/v3/project/${{env.RANCHER_PROJECT_ID}}/workloads/deployment:${{env.RANCHER_DEPLOYMENT}}?action=redeploy'
