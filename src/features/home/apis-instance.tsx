@@ -38,7 +38,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               alt=""
-              className="absolute inset-o w-full h-full object-cover"
+              className="inset-o absolute h-full w-full object-cover"
               src={instance.image}
             />
           )
