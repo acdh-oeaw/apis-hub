@@ -1,24 +1,24 @@
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 export function useIntersectionObserver(
-  element: HTMLElement | null,
-  callback: (() => void) | undefined,
+	element: HTMLElement | null,
+	callback: (() => void) | undefined,
 ): void {
-  useEffect(() => {
-    if (element == null) return
-    if (callback == null) return
+	useEffect(() => {
+		if (element == null) return;
+		if (callback == null) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      const [entry] = entries
-      if (entry?.isIntersecting === true) {
-        callback()
-      }
-    })
+		const observer = new IntersectionObserver((entries) => {
+			const [entry] = entries;
+			if (entry?.isIntersecting === true) {
+				callback();
+			}
+		});
 
-    observer.observe(element)
+		observer.observe(element);
 
-    return () => {
-      observer.unobserve(element)
-    }
-  }, [element, callback])
+		return () => {
+			observer.unobserve(element);
+		};
+	}, [element, callback]);
 }

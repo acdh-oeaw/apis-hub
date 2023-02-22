@@ -1,13 +1,13 @@
-import Script from 'next/script'
+import Script from "next/script";
 
-import { matomoBaseUrl, matomoId } from '~/config/analytics.config'
+import { matomoBaseUrl, matomoId } from "~/config/analytics.config";
 
 export function AnalyticsScript(): JSX.Element | null {
-  if (matomoBaseUrl == null || matomoId == null) {
-    return null
-  }
+	if (matomoBaseUrl == null || matomoId == null) {
+		return null;
+	}
 
-  return <Script dangerouslySetInnerHTML={{ __html: script }} id="analytics" />
+	return <Script dangerouslySetInnerHTML={{ __html: script }} id="analytics" />;
 }
 
 const script = `
@@ -22,4 +22,4 @@ _paq.push(['trackPageView']);
   var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
   g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
 })();
-`
+`;

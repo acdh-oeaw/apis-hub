@@ -1,13 +1,13 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
-import styles from '@/features/home/home-page-lead-in.module.css'
+import styles from "@/features/home/home-page-lead-in.module.css";
 
 interface HomePageLeadInProps {
-  children: ReactNode
+	children: ReactNode;
 }
 
 export function HomePageLeadIn(props: HomePageLeadInProps): JSX.Element {
-  const { children } = props
+	const { children } = props;
 
-  return <p className={styles['text']}>{children}</p>
+	return <p className={styles["text"]}>{children}</p>;
 }

@@ -1,36 +1,36 @@
 :root {
-  /** Global color variables. */
-  --color-pink: hsl(344deg 94% 47.5%);
-  --color-pink-light: hsl(344deg 94% 52.5%);
-  --color-pink-dark: hsl(344deg 94% 42.5%);
-  --color-yellow: hsl(43deg 100% 49%);
-  --color-yellow-light: hsl(43deg 100% 54%);
-  --color-yellow-dark: hsl(43deg 100% 44%);
-  --color-blue: hsl(197deg 100% 55%);
-  --color-blue-light: hsl(197deg 100% 60%);
-  --color-blue-dark: hsl(197deg 100% 50%);
+	/** Global color variables. */
+	--color-pink: hsl(344deg 94% 47.5%);
+	--color-pink-light: hsl(344deg 94% 52.5%);
+	--color-pink-dark: hsl(344deg 94% 42.5%);
+	--color-yellow: hsl(43deg 100% 49%);
+	--color-yellow-light: hsl(43deg 100% 54%);
+	--color-yellow-dark: hsl(43deg 100% 44%);
+	--color-blue: hsl(197deg 100% 55%);
+	--color-blue-light: hsl(197deg 100% 60%);
+	--color-blue-dark: hsl(197deg 100% 50%);
 
-  /** Neutral colors. */
-  --color-neutral-0: hsl(220deg 13% 100%);
-  --color-neutral-100: hsl(220deg 13% 90%);
-  --color-neutral-200: hsl(220deg 13% 80%);
-  --color-neutral-600: hsl(220deg 13% 40%);
-  --color-neutral-800: hsl(220deg 13% 20%);
+	/** Neutral colors. */
+	--color-neutral-0: hsl(220deg 13% 100%);
+	--color-neutral-100: hsl(220deg 13% 90%);
+	--color-neutral-200: hsl(220deg 13% 80%);
+	--color-neutral-600: hsl(220deg 13% 40%);
+	--color-neutral-800: hsl(220deg 13% 20%);
 
-  /** Aliased color variables. */
-  --color-primary: var(--color-pink);
-  --color-primary-light: var(--color-pink-light);
-  --color-primary-dark: var(--color-pink-dark);
-  --color-secondary: var(--color-yellow);
-  --color-secondary-light: var(--color-yellow-light);
-  --color-secondary-dark: var(--color-yellow-dark);
-  --color-tertiary: var(--color-blue);
-  --color-tertiary-light: var(--color-blue-light);
-  --color-tertiary-dark: var(--color-blue-dark);
-  --color-background: var(--color-neutral-0);
-  --color-background-inverted: var(--color-neutral-800);
-  --color-error: var(--color-pink);
-  --color-info: var(--color-blue);
-  --color-success: var(--color-blue);
-  --color-warning: var(--color-yellow);
+	/** Aliased color variables. */
+	--color-primary: var(--color-pink);
+	--color-primary-light: var(--color-pink-light);
+	--color-primary-dark: var(--color-pink-dark);
+	--color-secondary: var(--color-yellow);
+	--color-secondary-light: var(--color-yellow-light);
+	--color-secondary-dark: var(--color-yellow-dark);
+	--color-tertiary: var(--color-blue);
+	--color-tertiary-light: var(--color-blue-light);
+	--color-tertiary-dark: var(--color-blue-dark);
+	--color-background: var(--color-neutral-0);
+	--color-background-inverted: var(--color-neutral-800);
+	--color-error: var(--color-pink);
+	--color-info: var(--color-blue);
+	--color-success: var(--color-blue);
+	--color-warning: var(--color-yellow);
 }

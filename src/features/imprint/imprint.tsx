@@ -1,16 +1,16 @@
-import styles from '@/features/imprint/imprint.module.css'
+import styles from "@/features/imprint/imprint.module.css";
 
 interface ImprintProps {
-  imprint: string
+	imprint: string;
 }
 
 export function Imprint(props: ImprintProps): JSX.Element {
-  const { imprint } = props
+	const { imprint } = props;
 
-  return (
-    <div className={styles['prose']}>
-      <h1>Imprint</h1>
-      <div dangerouslySetInnerHTML={{ __html: imprint }} />
-    </div>
-  )
+	return (
+		<div className={styles["prose"]}>
+			<h1>Imprint</h1>
+			<div dangerouslySetInnerHTML={{ __html: imprint }} />
+		</div>
+	);
 }

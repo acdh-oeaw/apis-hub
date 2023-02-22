@@ -1,8 +1,8 @@
 .container {
-  position: relative;
-  display: grid;
-  grid-template-areas:
-    'search-bar'
-    'visualisation';
-  grid-template-rows: auto 1fr;
+	position: relative;
+	display: grid;
+	grid-template-areas:
+		"search-bar"
+		"visualisation";
+	grid-template-rows: auto 1fr;
 }

@@ -1,15 +1,15 @@
-import { createUrl } from '@stefanprobst/request'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { createUrl } from "@stefanprobst/request";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
 
-import { baseUrl } from '~/config/site.config'
+import { baseUrl } from "~/config/app.config";
 
 export function useRoute(): URL {
-  const router = useRouter()
+	const router = useRouter();
 
-  const url = useMemo(() => {
-    return createUrl({ baseUrl, pathname: router.asPath })
-  }, [router])
+	const url = useMemo(() => {
+		return createUrl({ baseUrl, pathname: router.asPath });
+	}, [router]);
 
-  return url
+	return url;
 }

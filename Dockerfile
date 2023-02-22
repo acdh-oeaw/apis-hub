@@ -8,11 +8,11 @@ WORKDIR /app
 
 USER node
 
-COPY --chown=node:node package.json package-lock.json ./
+COPY --chown=node:node package.json package-lock.json .npmrc ./
 
 RUN npm install --ci --no-audit --no-fund
 
-COPY --chown=node:node tsconfig.json app.d.ts next-env.d.ts next.config.mjs tailwind.config.cjs ./
+COPY --chown=node:node tsconfig.json next.config.mjs tailwind.config.cjs ./
 COPY --chown=node:node scripts ./scripts
 COPY --chown=node:node config ./config
 COPY --chown=node:node public ./public
@@ -22,8 +22,10 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG NEXT_PUBLIC_BASE_URL
+ARG NEXT_PUBLIC_BOTS
 ARG NEXT_PUBLIC_MATOMO_BASE_URL
 ARG NEXT_PUBLIC_MATOMO_ID
+ARG NEXT_PUBLIC_REDMINE_ID
 
 RUN npm run build
 

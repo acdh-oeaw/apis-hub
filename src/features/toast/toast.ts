@@ -1,1 +1,1 @@
-export { toast } from 'react-toastify'
+export { toast } from "react-toastify";

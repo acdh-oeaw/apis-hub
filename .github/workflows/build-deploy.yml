@@ -51,6 +51,8 @@ jobs:
             NEXT_PUBLIC_BASE_URL=https://apis-hub.acdh-dev.oeaw.ac.at
             NEXT_PUBLIC_MATOMO_BASE_URL=https://matomo.acdh.oeaw.ac.at/
             NEXT_PUBLIC_MATOMO_ID=140
+            NEXT_PUBLIC_BOTS=enabled
+            NEXT_PUBLIC_REDMINE_ID=14595
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

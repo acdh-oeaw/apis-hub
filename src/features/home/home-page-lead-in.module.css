@@ -1,13 +1,14 @@
 .text {
-  max-width: 80ch;
-  font-size: 1.25rem;
+	max-width: 80ch;
+	font-size: 1.25rem;
 
-  & a {
-    text-decoration: underline dotted;
+	& a {
+		text-decoration: underline dotted;
 
-    &:hover {
-      text-decoration: none;
-    }
-  }
-  @apply text-gray-700;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	@apply text-gray-700;
 }

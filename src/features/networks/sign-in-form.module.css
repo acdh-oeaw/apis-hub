@@ -1,4 +1,5 @@
 .form {
-  display: grid;
-  @apply gap-4;
+	display: grid;
+
+	@apply gap-4;
 }

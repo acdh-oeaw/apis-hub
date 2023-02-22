@@ -1,9 +1,9 @@
-import { useReducer } from 'react'
+import { useReducer } from "react";
 
 export function useForceRender(): () => void {
-  const [, dispatch] = useReducer(() => {
-    return []
-  }, [])
+	const [, dispatch] = useReducer(() => {
+		return [];
+	}, []);
 
-  return dispatch
+	return dispatch;
 }
