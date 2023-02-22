@@ -1,41 +1,36 @@
 {
   "css.validate": false,
-  "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.guides.bracketPairs": "active",
-  "editor.renderWhitespace": "boundary",
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
   "editor.rulers": [100],
-  "editor.suggest.localityBonus": true,
-  "editor.wordBasedSuggestions": false,
-  "emmet.showExpandedAbbreviation": "inMarkupAndStylesheetFilesOnly",
   "eslint.enable": true,
   "eslint.validate": ["javascript", "typescript", "typescriptreact"],
-  "explorer.excludeGitIgnore": true,
-  "jest.autoRun": {
-    "watch": false,
-    "onSave": "test-file"
+  "files.associations": {
+    "*.css": "tailwindcss"
   },
+  "files.eol": "\n",
   "less.validate": false,
   "scss.validate": false,
   "search.exclude": {
     "yarn.lock": true
   },
   "stylelint.enable": true,
+  "stylelint.snippet": ["css", "postcss", "tailwindcss"],
+  "stylelint.validate": ["css", "postcss", "tailwindcss"],
   "tailwindCSS.validate": true,
   "terminal.integrated.enablePersistentSessions": false,
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "workbench.startupEditor": "readme",
-  "workbench.tree.indent": 16,
-  "[markdown]": {
-    "editor.wordWrap": "on"
-  },
-  "[mdx]": {
+  "[markdown][mdx]": {
     "editor.wordWrap": "on"
   }
 }
