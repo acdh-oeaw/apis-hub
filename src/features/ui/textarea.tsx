@@ -16,7 +16,7 @@ export function TextArea(props: TextAreaProps): JSX.Element {
       <Label as="span">{label}</Label>
       <textarea
         autoComplete="off"
-        className="mt-1 w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-primary-light focus:outline-none focus:ring-1 focus:ring-primary-light text-sm"
+        className="mt-1 w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm shadow-sm focus:border-primary-light focus:outline-none focus:ring-1 focus:ring-primary-light"
         name={name}
         placeholder={placeholder}
         required={required}

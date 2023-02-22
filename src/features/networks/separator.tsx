@@ -8,7 +8,7 @@ export function Separator(props: SeparatorProps): JSX.Element {
 
   return (
     <div
-      className={cx(orientation === 'vertical' ? 'w-0 mx-2 border-l' : 'h-0 my-2 border-t')}
+      className={cx(orientation === 'vertical' ? 'mx-2 w-0 border-l' : 'my-2 h-0 border-t')}
       role="separator"
     />
   )

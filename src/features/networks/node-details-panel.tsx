@@ -94,10 +94,10 @@ export function NodeDetailsPanel(props: InfoPanelProps): JSX.Element | null {
 
   return (
     <Panel>
-      <div className="py-0.5 grid w-full">
-        <div className="flex gap-2 items-center font-medium">
+      <div className="grid w-full py-0.5">
+        <div className="flex items-center gap-2 font-medium">
           <div
-            className="w-3 h-3 rounded flex-shrink-0"
+            className="h-3 w-3 flex-shrink-0 rounded"
             style={{ backgroundColor: colors.node[selectedNodeData.type] }}
           />{' '}
           {selectedNodeData.label}
@@ -136,7 +136,7 @@ export function NodeDetailsPanel(props: InfoPanelProps): JSX.Element | null {
                 return (
                   <button
                     key={type}
-                    className="flex gap-2 items-center"
+                    className="flex items-center gap-2"
                     onClick={() => {
                       onAddEdges(
                         relations.map((relation) => {
@@ -157,7 +157,7 @@ export function NodeDetailsPanel(props: InfoPanelProps): JSX.Element | null {
                     }}
                   >
                     <div
-                      className="w-3 h-3 rounded"
+                      className="h-3 w-3 rounded"
                       style={{ backgroundColor: colors.node[type] }}
                     />{' '}
                     {count} {count === 1 ? type : type + 's'}
@@ -167,7 +167,7 @@ export function NodeDetailsPanel(props: InfoPanelProps): JSX.Element | null {
             </div>
           </Fragment>
         ) : query.isLoading ? (
-          <div className="flex justify-center my-4">
+          <div className="my-4 flex justify-center">
             <Spinner />
           </div>
         ) : null}

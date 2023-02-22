@@ -34,24 +34,24 @@ export function StatusPanel(props: StatusPanelProps): JSX.Element {
 
   return (
     <Panel>
-      <dl className="py-0.5 flex w-full gap-4 justify-end font-medium">
+      <dl className="flex w-full justify-end gap-4 py-0.5 font-medium">
         <div>
-          <dt className="text-xs uppercase tracking-wide text-gray-400 font-semibold">Edges</dt>
+          <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">Edges</dt>
           <dd>{edgeCont}</dd>
         </div>
         <div>
-          <dt className="text-xs uppercase tracking-wide text-gray-400 font-semibold">Nodes</dt>
+          <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">Nodes</dt>
           <dd>{nodeCount}</dd>
         </div>
         <div>
-          <dt className="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+          <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">
             APIS Instance
           </dt>
           <dd>{instance.title}</dd>
         </div>
         {instance.access.type === 'restricted' ? (
           <div>
-            <dt className="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+            <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">
               Signed in as
             </dt>
             <dd>{instance.access.user?.username}</dd>

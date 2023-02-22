@@ -37,12 +37,12 @@ export default function NetworkPage(): JSX.Element {
     <NetworksPageContainer>
       <SearchBar instance={instance} />
       <Visualisation instance={instance}>
-        <div className="z-10 absolute top-0 bottom-0 grid right-0 m-6 gap-2 content-between pointer-events-none">
-          <div className="grid gap-2 pointer-events-auto">
+        <div className="pointer-events-none absolute top-0 bottom-0 right-0 z-10 m-6 grid content-between gap-2">
+          <div className="pointer-events-auto grid gap-2">
             <SearchPanel />
             <NodeDetailsPanel instance={instance} />
           </div>
-          <div className="grid gap-2 pointer-events-auto">
+          <div className="pointer-events-auto grid gap-2">
             <VisualisationControlPanel instance={instance} />
             <LegendPanel />
             <StatusPanel instance={instance} />

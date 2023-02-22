@@ -25,7 +25,7 @@ export function SearchPanel(): JSX.Element {
 
   return (
     <Panel>
-      <form className="py-0.5 grid w-full" onSubmit={onSubmit}>
+      <form className="grid w-full py-0.5" onSubmit={onSubmit}>
         <input
           aria-label="Search node"
           className="focus:outline-none"

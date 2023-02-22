@@ -1,6 +1,6 @@
 export function Spinner(): JSX.Element {
   return (
-    <svg className="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
+    <svg className="h-3.5 w-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
       <path
         className="opacity-75"
