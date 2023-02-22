@@ -23,7 +23,7 @@
 		"lint:styles:check": "stylelint \"**/*.css\" --allow-empty-input --cache --cache-location ./.next/cache/stylelint/ --ignore-path ./.gitignore",
 		"lint:styles:fix": "npm run lint:styles:check -- --fix",
 		"prebuild": "npm run generate:favicons",
-		"prepare": "run-p setup generate:*",
+		"prepare": "run-s setup generate:*",
 		"setup": "simple-git-hooks || exit 0",
 		"start": "next start",
 		"types:check": "tsc --noEmit",

@@ -8,7 +8,13 @@ const schema = z.object({
 	NEXT_PUBLIC_REDMINE_ID: z.string(),
 });
 
-const result = schema.safeParse(process.env);
+const result = schema.safeParse({
+	NEXT_PUBLIC_BASE_URL: process.env["NEXT_PUBLIC_BASE_URL"],
+	NEXT_PUBLIC_BOTS: process.env["NEXT_PUBLIC_BOTS"],
+	NEXT_PUBLIC_MATOMO_BASE_URL: process.env["NEXT_PUBLIC_MATOMO_BASE_URL"],
+	NEXT_PUBLIC_MATOMO_ID: process.env["NEXT_PUBLIC_MATOMO_ID"],
+	NEXT_PUBLIC_REDMINE_ID: process.env["NEXT_PUBLIC_REDMINE_ID"],
+});
 
 if (!result.success) {
 	const errors = result.error.flatten().fieldErrors;
