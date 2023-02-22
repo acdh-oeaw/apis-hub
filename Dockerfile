@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # build
-FROM node:16-slim AS build
+FROM node:18-slim AS build
 
 RUN mkdir /app && chown -R node:node /app
 WORKDIR /app
@@ -28,7 +28,7 @@ ARG NEXT_PUBLIC_MATOMO_ID
 RUN npm run build
 
 # serve
-FROM node:16-slim AS serve
+FROM node:18-slim AS serve
 
 RUN mkdir /app && chown -R node:node /app
 WORKDIR /app

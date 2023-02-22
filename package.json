@@ -1,32 +1,31 @@
 {
-  "name": "@acdh/apis-hub",
-  "version": "1.0.0",
+  "name": "@acdh-oeaw/apis-hub",
   "private": true,
   "license": "MIT",
   "scripts": {
     "analyze": "cross-env BUNDLE_ANALYZER='enabled' next build --no-lint",
     "build": "next build",
     "dev": "next dev",
-    "docker:dev": "docker run --rm --init -u `id -u`:`id -g` -v `pwd`:/app -w /app -p 3000:3000 node:16-slim npm run dev",
-    "format": "prettier . --cache --check --ignore-path .gitignore",
-    "format:fix": "npm run format -- --write",
+    "docker:dev": "docker run --rm --init -u `id -u`:`id -g` -v `pwd`:/app -w /app -p 3000:3000 node:18-slim npm run dev",
+    "format:check": "prettier . --cache --check --ignore-path .gitignore",
+    "format:fix": "npm run format:check -- --write",
     "generate:favicons": "run-ts-script scripts/generate-favicons",
-    "lint": "run-p lint:*:check",
+    "lint:check": "run-p lint:*:check",
     "lint:fix": "run-p lint:*:fix",
     "lint:code:check": "eslint . --cache --cache-location .next/cache/eslint/ --ext cjs,js,mjs,ts,tsx --ignore-path .gitignore",
     "lint:code:fix": "npm run lint:code:check -- --fix",
     "lint:styles:check": "stylelint '**/*.css' --cache --cache-location .next/cache/stylelint/ --ignore-path .gitignore",
     "lint:styles:fix": "npm run lint:styles:check -- --fix",
     "prebuild": "npm run generate:favicons",
-    "prepare": "run-p generate:* && simple-git-hooks || exit 0",
+    "prepare": "run-p setup generate:*",
+    "setup": "simple-git-hooks || exit 0",
     "start": "next start",
-    "test": "exit 0",
-    "typecheck": "tsc --noEmit -p ./tsconfig.json",
-    "validate": "npm run format && npm run lint && npm run typecheck && npm run test"
+    "types:check": "tsc --noEmit",
+    "validate": "run-s format:check lint:check types:check"
   },
   "engines": {
-    "node": "16.x",
-    "npm": "8.x"
+    "node": "18.x",
+    "npm": "9.x"
   },
   "packageManager": "npm@8.5.0",
   "dependencies": {
