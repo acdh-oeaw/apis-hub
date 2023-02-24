@@ -1,25 +1,36 @@
-import { z } from "zod";
+import { assert } from "@stefanprobst/assert";
 
-const schema = z.object({
-	NEXT_PUBLIC_BASE_URL: z.string(),
-	NEXT_PUBLIC_BOTS: z.literal("enabled").optional(),
-	NEXT_PUBLIC_MATOMO_BASE_URL: z.string().optional(),
-	NEXT_PUBLIC_MATOMO_ID: z.string().optional(),
-	NEXT_PUBLIC_REDMINE_ID: z.string(),
-});
+declare global {
+	// eslint-disable-next-line @typescript-eslint/no-namespace
+	namespace NodeJS {
+		interface ProcessEnv {
+			NEXT_PUBLIC_BASE_URL?: string;
+			NEXT_PUBLIC_BOTS?: string;
+			NEXT_PUBLIC_MATOMO_BASE_URL?: string;
+			NEXT_PUBLIC_MATOMO_ID?: string;
+			NEXT_PUBLIC_REDMINE_ID?: string;
+		}
+	}
+}
 
-const result = schema.safeParse({
+interface Env {
+	NEXT_PUBLIC_BASE_URL: string;
+	NEXT_PUBLIC_BOTS?: "disabled" | "enabled";
+	NEXT_PUBLIC_MATOMO_BASE_URL?: string;
+	NEXT_PUBLIC_MATOMO_ID?: string;
+	NEXT_PUBLIC_REDMINE_ID: string;
+}
+
+assert(process.env.NEXT_PUBLIC_BASE_URL != null);
+if (process.env.NEXT_PUBLIC_BOTS != null) {
+	assert(process.env.NEXT_PUBLIC_BOTS === "enabled" || process.env.NEXT_PUBLIC_BOTS === "disabled");
+}
+assert(process.env.NEXT_PUBLIC_REDMINE_ID != null);
+
+export const env: Env = {
 	NEXT_PUBLIC_BASE_URL: process.env["NEXT_PUBLIC_BASE_URL"],
 	NEXT_PUBLIC_BOTS: process.env["NEXT_PUBLIC_BOTS"],
 	NEXT_PUBLIC_MATOMO_BASE_URL: process.env["NEXT_PUBLIC_MATOMO_BASE_URL"],
 	NEXT_PUBLIC_MATOMO_ID: process.env["NEXT_PUBLIC_MATOMO_ID"],
 	NEXT_PUBLIC_REDMINE_ID: process.env["NEXT_PUBLIC_REDMINE_ID"],
-});
-
-if (!result.success) {
-	const errors = result.error.flatten().fieldErrors;
-	const message = ["Missing environment variables.\n", JSON.stringify(errors)].join("\n");
-	throw new Error(message);
-}
-
-export const env = result.data;
+};
