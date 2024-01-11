@@ -10,7 +10,7 @@ import {
 	TrashIcon,
 } from '@heroicons/react/24/outline'
 import { useQueryClient } from '@tanstack/react-query'
-import cx from 'clsx'
+import {cn} from "@/lib/cn";
 import type { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -189,7 +189,7 @@ function Button(props: ButtonProps): JSX.Element {
 		<button
 			{...props}
 			aria-label={label}
-			className={cx(
+			className={cn(
 				'h-6 w-6 flex-shrink-0 transition-colors hover:text-gray-600',
 				disabled === true && 'pointer-events-none text-gray-400',
 			)}

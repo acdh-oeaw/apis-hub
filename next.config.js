@@ -1,18 +1,15 @@
 /** @typedef {import('next').NextConfig} NextConfig */
 
 import createBundleAnalyzer from "@next/bundle-analyzer";
-import { log } from "@stefanprobst/log";
+import { log } from "@acdh-oeaw/lib";
 
-const isCrawlerAllowed = process.env["NEXT_PUBLIC_BOTS"] === "enabled";
+const isCrawlerAllowed = process.env.BOTS === "enabled";
 
 /** @type {NextConfig} */
 const config = {
 	eslint: {
 		dirs: ["."],
 		ignoreDuringBuilds: true,
-	},
-	experimental: {
-		appDir: false,
 	},
 	async headers() {
 		const headers = [
@@ -65,7 +62,7 @@ const config = {
 };
 
 /** Array<(config: NextConfig) => NextConfig> */
-const plugins = [createBundleAnalyzer({ enabled: process.env["BUNDLE_ANALYZER"] === "enabled" })];
+const plugins = [createBundleAnalyzer({ enabled: process.env.BUNDLE_ANALYZER === "enabled" })];
 
 export default plugins.reduce((config, plugin) => {
 	return plugin(config);

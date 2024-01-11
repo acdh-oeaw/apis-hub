@@ -1,5 +1,5 @@
-import type { UrlInit } from "@stefanprobst/request";
-import { createUrl } from "@stefanprobst/request";
+import type { UrlInit } from "@acdh-oeaw/lib";
+import { createUrl } from "@acdh-oeaw/lib";
 
 import { baseUrl } from "~/config/app.config";
 

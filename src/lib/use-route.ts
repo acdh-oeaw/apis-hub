@@ -1,4 +1,4 @@
-import { createUrl } from "@stefanprobst/request";
+import { createUrl } from "@acdh-oeaw/lib";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 

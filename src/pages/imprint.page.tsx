@@ -1,4 +1,4 @@
-import { request } from "@stefanprobst/request";
+import { request } from "@acdh-oeaw/lib";
 import type { GetStaticPropsResult } from "next";
 
 import { PageContent } from "@/app/page-content";

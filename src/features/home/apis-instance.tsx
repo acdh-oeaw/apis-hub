@@ -1,4 +1,4 @@
-import cx from "clsx";
+import {cn} from "@/lib/cn";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 	return (
 		<article className={styles["container"]}>
 			<div
-				className={cx(
+				className={cn(
 					"relative border",
 					!hasImage && "bg-gradient-to-br from-secondary-light to-primary",
 				)}

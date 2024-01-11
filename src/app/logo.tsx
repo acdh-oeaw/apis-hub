@@ -1,4 +1,4 @@
-import { range } from "@stefanprobst/range";
+import { range } from "@acdh-oeaw/lib";
 import type { CSSProperties } from "react";
 
 import styles from "@/app/logo.module.css";

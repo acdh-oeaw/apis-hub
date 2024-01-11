@@ -3,7 +3,7 @@ import "@/styles/index.css";
 
 import { ErrorBoundary } from "@stefanprobst/next-error-boundary";
 import { PageMetadata } from "@stefanprobst/next-page-metadata";
-import { createUrl } from "@stefanprobst/request";
+import { createUrl } from "@acdh-oeaw/lib";
 import type { AppProps, NextWebVitalsMetric } from "next/app";
 import Head from "next/head";
 import { Fragment } from "react";
@@ -30,7 +30,7 @@ export default function App(props: AppProps): JSX.Element {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				<link rel="icon" href="/favicon.ico" sizes="any" />
 				<link rel="icon" href="/icon.svg" type="image/svg+xml" />
-				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+				<link rel="apple-touch-icon" href="/apple-icon.png" />
 				<link rel="manifest" href={"/" + manifestFileName} />
 			</Head>
 			<PageMetadata

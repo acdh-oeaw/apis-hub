@@ -1,4 +1,4 @@
-import { assert } from "@stefanprobst/assert";
+import { assert } from "@acdh-oeaw/lib";
 
 import { createBasicAuth } from "@/lib/create-basic-auth";
 import type { ApisInstanceConfig } from "~/config/apis.config";

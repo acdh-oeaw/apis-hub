@@ -1,13 +1,14 @@
 {
-	"extends": "@stefanprobst/tsconfig",
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "@acdh-oeaw/tsconfig",
 	"compilerOptions": {
-		"baseUrl": ".",
-		"exactOptionalPropertyTypes": false,
-		"paths": {
-			"@/*": ["./src/*"],
-			"~/*": ["./*"]
-		}
+			"baseUrl": ".",
+			"paths": {
+					"@/*": ["./src/*"],
+					"~/*": ["./*"]
+			},
+			"plugins": [{ "name": "next" }]
 	},
-	"include": ["**/*.ts", "**/*.tsx", "*.config.mjs", "*.config.cjs"],
-	"exclude": ["node_modules"]
+	"include": ["./**/*.ts", "./**/*.tsx", ".next/types/**/*.ts", "./**/*.js"],
+	"exclude": ["node_modules", "out"]
 }

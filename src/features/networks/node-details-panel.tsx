@@ -1,5 +1,5 @@
-import { capitalize } from "@stefanprobst/capitalize";
-import { log } from "@stefanprobst/log";
+import { capitalize } from "@acdh-oeaw/lib";
+import { log } from "@acdh-oeaw/lib";
 import { Fragment, useEffect, useState } from "react";
 
 import { useGetApisEntityById } from "@/features/apis/api";

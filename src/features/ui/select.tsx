@@ -1,6 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon as SelectorIcon } from '@heroicons/react/20/solid'
-import cx from 'clsx'
+import {cn} from "@/lib/cn";
 import type { ReactNode } from 'react'
 import { Fragment, useState } from 'react'
 
@@ -51,7 +51,7 @@ export function Select<T extends Option>(props: SelectProps<T>): JSX.Element {
 							<div className="relative mt-1">
 								<Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left text-sm shadow-sm focus:border-primary-light focus:outline-none focus:ring-1 focus:ring-primary-light">
 									<span
-										className={cx('block truncate', shouldDisplayPlaceholder && 'text-gray-500')}
+										className={cn('block truncate', shouldDisplayPlaceholder && 'text-gray-500')}
 									>
 										{shouldDisplayPlaceholder ? placeholder : getOptionLabel(selectedOption)}
 									</span>

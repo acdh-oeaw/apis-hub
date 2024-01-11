@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-namespace */
 
-import { assert } from "@stefanprobst/assert";
-import { isNonEmptyString } from "@stefanprobst/is-nonempty-string";
-import type { HttpError, RequestOptions } from "@stefanprobst/request";
-import { createUrl, request } from "@stefanprobst/request";
+import { assert } from "@acdh-oeaw/lib";
+import { isNonEmptyString } from "@acdh-oeaw/lib";
+import type { HttpError, RequestConfig } from "@acdh-oeaw/lib";
+import { createUrl, request } from "@acdh-oeaw/lib";
 import type {
 	UseInfiniteQueryOptions,
 	UseMutationOptions,
@@ -58,7 +58,7 @@ function getApisEntitySuggestionsByType(
 			q: searchTerm,
 		},
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: createAuthHeaders(instance),
 		responseType: "json",
 	};
@@ -141,7 +141,7 @@ function getApisEntityById(
 			format: "json",
 		},
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: createAuthHeaders(instance),
 		responseType: "json",
 	};
@@ -192,7 +192,7 @@ function getApisEntitiesByType(
 			offset,
 		},
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: createAuthHeaders(instance),
 		responseType: "json",
 	};
@@ -250,7 +250,7 @@ function getApisRelationTypes(
 			offset,
 		},
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: createAuthHeaders(instance),
 		responseType: "json",
 	};
@@ -332,7 +332,7 @@ function getApisRelationById(
 			format: "json+net",
 		},
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: createAuthHeaders(instance),
 		responseType: "json",
 	};
@@ -398,7 +398,7 @@ function getApisRelations(
 			}__id`]: targetEntity,
 		},
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: createAuthHeaders(instance),
 		responseType: "json",
 	};
@@ -442,7 +442,7 @@ function signInWithBasicAuth(
 		baseUrl: instance.url,
 		pathname: "/apis/api/",
 	});
-	const options: RequestOptions = {
+	const options: RequestConfig = {
 		headers: { authorization: createBasicAuth(data.username, data.password) },
 		responseType: "json",
 	};

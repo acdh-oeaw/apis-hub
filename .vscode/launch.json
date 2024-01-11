@@ -4,7 +4,7 @@
 			"name": "Apps: Web (server-side)",
 			"request": "launch",
 			"runtimeArgs": ["run", "dev"],
-			"runtimeExecutable": "npm",
+			"runtimeExecutable": "pnpm",
 			"skipFiles": ["<node_internals>/**"],
 			"type": "node"
 		},

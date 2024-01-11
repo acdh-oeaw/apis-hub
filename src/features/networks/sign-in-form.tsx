@@ -1,4 +1,4 @@
-import { HttpError } from "@stefanprobst/request";
+import { HttpError } from "@acdh-oeaw/lib";
 import type { FormEvent } from "react";
 
 import { getApisErrorMessage, useSignInWithBasicAuth } from "@/features/apis/api";

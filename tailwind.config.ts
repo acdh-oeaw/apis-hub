@@ -1,17 +1,9 @@
-/** @typedef {import('tailwindcss').Config} TailwindConfig */
+import type { Config } from 'tailwindcss'
+import headlessUiPlugin from '@headlessui/tailwindcss'
 
-/** @type {TailwindConfig} */
 const config = {
 	content: ["./src/**/*.tsx"],
-	corePlugins: {
-		textOpacity: false,
-		backgroundOpacity: false,
-		borderOpacity: false,
-		divideOpacity: false,
-		placeholderOpacity: false,
-		ringOpacity: false,
-	},
-	plugins: [require("@headlessui/tailwindcss")],
+	plugins: [headlessUiPlugin],
 	theme: {
 		extend: {
 			colors: {
@@ -30,6 +22,6 @@ const config = {
 			},
 		},
 	},
-};
+} satisfies Config
 
-module.exports = config;
+export default config;

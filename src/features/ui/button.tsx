@@ -1,4 +1,4 @@
-import cx from "clsx";
+import {cn} from "@/lib/cn";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { Spinner } from "@/features/ui/spinner";
@@ -17,7 +17,7 @@ export function Button(props: ButtonProps): JSX.Element {
 	return (
 		<button
 			aria-disabled={isDisabled}
-			className={cx(
+			className={cn(
 				"inline-flex items-center justify-center gap-2 rounded px-4 py-3 text-sm font-semibold leading-none transition-colors focus:outline-none focus:ring-1",
 				isDisabled
 					? "pointer-events-none bg-gray-100 text-gray-500 focus:ring-gray-600"

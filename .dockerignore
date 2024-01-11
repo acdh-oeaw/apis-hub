@@ -4,15 +4,10 @@
 node_modules/
 .pnpm-store/
 
-# next.js
-/.next/
-/next-env.d.ts
-
 # logs
 *.log
 
 # non-public environment variables
-.env
 .env.local
 .env.*.local
 
@@ -26,20 +21,26 @@ node_modules/
 
 # misc
 .DS_Store
+.idea/
 
-# auto-generated favicons
-/public/android-chrome-192x192.png
-/public/android-chrome-512x512.png
-/public/app.webmanifest
-/public/apple-touch-icon.png
-/public/favicon.ico
-/public/icon.svg
-/public/image.webp
+# next.js
+.next/
+next-env.d.ts
+out/
 
 
 ## .dockerignore ##
 
+# git
 .git/
 .gitignore
+
+# github
 .github/
+
+# vscode settings
 .vscode/
+
+# environment variables
+.env
+.env.*

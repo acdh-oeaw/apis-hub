@@ -1,5 +1,5 @@
-import { assert } from "@stefanprobst/assert";
-import { log } from "@stefanprobst/log";
+import { assert } from "@acdh-oeaw/lib";
+import { log } from "@acdh-oeaw/lib";
 import Graph from "graphology";
 import type { SerializedEdge, SerializedNode } from "graphology-types";
 import type { ReactNode } from "react";
