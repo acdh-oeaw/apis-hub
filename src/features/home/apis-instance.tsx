@@ -28,6 +28,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 						<Image
 							alt=""
 							className="absolute inset-0 h-full w-full object-cover"
+							fill
 							/** Preload first three images. */
 							priority={index < 3}
 							sizes="(max-width: 480px) 420px, 820px"

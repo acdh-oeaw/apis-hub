@@ -12,7 +12,6 @@
 		"analyze": "cross-env BUNDLE_ANALYZER='enabled' next build --no-lint",
 		"build": "next build",
 		"dev": "next dev",
-		"docker:dev": "docker run --rm --init -u `id -u`:`id -g` -v `pwd`:/app -w /app -p 3000:3000 node:18-slim npm run dev",
 		"format:check": "prettier . --cache --check --ignore-path .gitignore",
 		"format:fix": "npm run format:check -- --write",
 		"generate:favicons": "tsx ./scripts/generate-favicons.ts",
