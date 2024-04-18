@@ -54,7 +54,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 				<p>{instance.description}</p>
 				<footer>
 					<a
-						aria-label={`More infon on ${instance.title}`}
+						aria-label={`More info on ${instance.title}`}
 						className={styles["link"]}
 						href={instance.url}
 						rel="noreferrer"
