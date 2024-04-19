@@ -2,7 +2,6 @@ import { HttpError } from "@stefanprobst/request";
 import type { FormEvent } from "react";
 
 import { getApisErrorMessage, useSignInWithBasicAuth } from "@/features/apis/api";
-import styles from "@/features/networks/sign-in-form.module.css";
 import { toast } from "@/features/toast/toast";
 import { Button } from "@/features/ui/button";
 import { TextField } from "@/features/ui/textfield";
@@ -46,7 +45,7 @@ export function SignInForm(props: SignInFormProps): JSX.Element {
 	}
 
 	return (
-		<form className={styles["form"]} onSubmit={onSubmit}>
+		<form className="grid gap-4" onSubmit={onSubmit}>
 			<TextField label="Username" name="username" required />
 			<TextField label="Password" name="password" required type="password" />
 			<Button isDisabled={signInMutation.isLoading} type="submit">

@@ -5,7 +5,6 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type Sigma from "sigma";
 
 import { useGraphs } from "@/features/networks/graphs.context";
-import styles from "@/features/networks/visualisation.module.css";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import type { ApisInstanceConfig } from "~/config/apis.config";
 import {
@@ -27,7 +26,11 @@ export function Visualisation(props: VisualisationProps): JSX.Element {
 	const { graph } = graphs[instance.id] ?? {};
 
 	if (graph == null || graph.order === 0) {
-		return <div className={styles["container"]}>Nothing to see yet.</div>;
+		return (
+			<div className="relative grid place-items-center border-y bg-gray-50">
+				Nothing to see yet.
+			</div>
+		);
 	}
 
 	return <VisualisationProvider graph={graph}>{children}</VisualisationProvider>;
@@ -55,7 +58,11 @@ function VisualisationProvider(props: VisualisationProviderProps): JSX.Element {
 
 	return (
 		<VisualisationContext.Provider value={value}>
-			<div data-visualisation ref={ref} className={styles["container"]}>
+			<div
+				ref={ref}
+				className="relative grid place-items-center border-y bg-gray-50"
+				data-visualisation
+			>
 				{children}
 			</div>
 		</VisualisationContext.Provider>

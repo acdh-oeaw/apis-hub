@@ -1,13 +1,15 @@
 import { useApis } from "@/features/apis/apis.context";
 import { ApisInstance } from "@/features/home/apis-instance";
-import styles from "@/features/home/apis-instance-list.module.css";
 
 export function ApisInstanceList(): JSX.Element {
 	const { config } = useApis();
 	const { instances } = config;
 
 	return (
-		<ul className={styles["container"]} role="list">
+		<ul
+			className="my-4 grid grid-cols-[repeat(auto-fill,minmax(min(384px,100%),1fr))] gap-12"
+			role="list"
+		>
 			{Object.values(instances).map((instance, index) => {
 				return (
 					<li key={instance.id}>

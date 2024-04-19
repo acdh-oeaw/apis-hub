@@ -1,5 +1,4 @@
 import { SignInForm } from "@/features/networks/sign-in-form";
-import styles from "@/features/networks/sign-in-page.module.css";
 import type { ApisInstanceConfig, UserAuth } from "~/config/apis.config";
 
 interface SignInPageProps {
@@ -11,7 +10,7 @@ export function SignInPage(props: SignInPageProps): JSX.Element {
 	const { instance, signIn } = props;
 
 	return (
-		<main className={styles["container"]}>
+		<main className="grid place-content-center place-items-center gap-8">
 			<h2>Sign in to {instance.title}</h2>
 			<SignInForm instance={instance} signIn={signIn} />
 		</main>

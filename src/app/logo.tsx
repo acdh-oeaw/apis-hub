@@ -1,11 +1,9 @@
 import { range } from "@stefanprobst/range";
 import type { CSSProperties } from "react";
 
-import styles from "@/app/logo.module.css";
-
 export function Logo(): JSX.Element {
 	return (
-		<div aria-hidden className={styles["container"]}>
+		<div aria-hidden className="inline-flex items-center">
 			<Hexagon color="var(--color-primary)" />
 			<Hexagon color="var(--color-secondary)" />
 			<Hexagon color="var(--color-tertiary)" />
@@ -24,7 +22,7 @@ function Hexagon(props: HexagonProps): JSX.Element {
 	const diameter = radius * 2;
 
 	return (
-		<svg className={styles["hexagon"]} viewBox={`0 0 ${diameter} ${diameter}`}>
+		<svg className="h-8" viewBox={`0 0 ${diameter} ${diameter}`}>
 			<polygon fill={color} points={createPoints(radius)} />
 		</svg>
 	);

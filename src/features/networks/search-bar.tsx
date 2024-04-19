@@ -15,7 +15,6 @@ import { entityTypes } from "@/features/apis/constants";
 import { shouldReverseRelation } from "@/features/apis/sort-entity-types";
 import type { ApisEntityType, ApisRelation } from "@/features/apis/types";
 import { useGraphs } from "@/features/networks/graphs.context";
-import styles from "@/features/networks/search-bar.module.css";
 import type { SearchFilters } from "@/features/networks/use-search-filters";
 import { useSearchFilters } from "@/features/networks/use-search-filters";
 import { toast } from "@/features/toast/toast";
@@ -124,7 +123,7 @@ export function SearchBar(props: SearchBarProps): JSX.Element {
 	const isLoading = query.isFetching || query.data?.next != null;
 
 	return (
-		<div className={styles["container"]}>
+		<div>
 			<SearchFiltersForm
 				instance={instance}
 				isLoading={isLoading}
@@ -220,7 +219,11 @@ function SearchFiltersForm(props: SearchFiltersFormProps): JSX.Element {
 	}
 
 	return (
-		<form className={styles["form"]} onSubmit={onSubmit} role="search">
+		<form
+			className="grid items-end gap-2 px-4 py-2 sm:grid-cols-2 lg:grid-cols-[minmax(180px,1fr)_2fr_2fr_minmax(180px,1fr)_2fr_160px]"
+			onSubmit={onSubmit}
+			role="search"
+		>
 			<EntityTypeSelect
 				entityType={sourceEntityType}
 				label="Source entity type"

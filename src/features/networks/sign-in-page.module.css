@@ -1,7 +1,0 @@
-.container {
-	display: grid;
-	place-items: center;
-	place-content: center;
-
-	@apply gap-8;
-}

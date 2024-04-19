@@ -2,7 +2,6 @@ import cx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from "@/features/home/apis-instance.module.css";
 import type { ApisInstanceConfig } from "~/config/apis.config";
 
 interface ApisInstanceProps {
@@ -16,7 +15,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 	const hasImage = instance.image.length > 0;
 
 	return (
-		<article className={styles["container"]}>
+		<article className="grid grid-rows-[256px_auto] overflow-hidden rounded shadow-md">
 			<div
 				className={cx(
 					"relative border",
@@ -27,7 +26,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 					instance.image.startsWith("/assets/images") ? (
 						<Image
 							alt=""
-							className="absolute inset-0 h-full w-full object-cover"
+							className="absolute inset-0 size-full object-cover"
 							fill
 							/** Preload first three images. */
 							priority={index < 3}
@@ -36,26 +35,22 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 						/>
 					) : (
 						// eslint-disable-next-line @next/next/no-img-element
-						<img
-							alt=""
-							className="absolute inset-0 h-full w-full object-cover"
-							src={instance.image}
-						/>
+						<img alt="" className="absolute inset-0 size-full object-cover" src={instance.image} />
 					)
 				) : null}
 			</div>
-			<div className={styles["content"]}>
-				<header>
-					<h2>
+			<div className="grid gap-8 p-8 ">
+				<header className="grid gap-4">
+					<h2 className="text-2xl">
 						<Link href={{ pathname: `/networks/${instance.id}` }}>{instance.title}</Link>
 					</h2>
-					<h3>{instance.subtitle}</h3>
+					<h3 className="text-lg">{instance.subtitle}</h3>
 				</header>
-				<p>{instance.description}</p>
-				<footer>
+				<p className="line-clamp-[8]">{instance.description}</p>
+				<footer className="flex items-center justify-between">
 					<a
 						aria-label={`More info on ${instance.title}`}
-						className={styles["link"]}
+						className="hover:underline"
 						href={instance.url}
 						rel="noreferrer"
 						target="_blank"
@@ -64,7 +59,7 @@ export function ApisInstance(props: ApisInstanceProps): JSX.Element {
 					</a>
 					<Link
 						aria-label={`Explore ${instance.title} dataset`}
-						className={styles["link-button"]}
+						className="rounded bg-primary px-6 py-2 font-semibold text-white transition hover:bg-primary-dark"
 						href={{ pathname: `/networks/${instance.id}` }}
 					>
 						Explore dataset

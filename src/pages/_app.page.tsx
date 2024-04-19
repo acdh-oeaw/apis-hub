@@ -1,5 +1,6 @@
 import "tailwindcss/tailwind.css";
 import "@/styles/index.css";
+import "@/styles/prose.css";
 
 import { ErrorBoundary } from "@stefanprobst/next-error-boundary";
 import { PageMetadata } from "@stefanprobst/next-page-metadata";

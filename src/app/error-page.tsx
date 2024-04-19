@@ -1,8 +1,6 @@
-import styles from "@/app/error-page.module.css";
-
 export function ErrorPage(): JSX.Element {
 	return (
-		<main className={styles["container"]}>
+		<main className="grid h-full place-items-center">
 			<div role="alert">
 				<p>😢 Something went horribly wrong.</p>
 			</div>

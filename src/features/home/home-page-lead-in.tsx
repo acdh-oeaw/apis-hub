@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 
-import styles from "@/features/home/home-page-lead-in.module.css";
-
 interface HomePageLeadInProps {
 	children: ReactNode;
 }
@@ -9,5 +7,9 @@ interface HomePageLeadInProps {
 export function HomePageLeadIn(props: HomePageLeadInProps): JSX.Element {
 	const { children } = props;
 
-	return <p className={styles["text"]}>{children}</p>;
+	return (
+		<p className="max-w-[80ch] text-lg text-gray-700 [&_a:hover]:no-underline [&_a]:underline [&_a]:decoration-dotted">
+			{children}
+		</p>
+	);
 }
