@@ -7,12 +7,10 @@ const isCrawlerAllowed = process.env["NEXT_PUBLIC_BOTS"] === "enabled";
 
 /** @type {NextConfig} */
 const config = {
+	appDir: false,
 	eslint: {
 		dirs: ["."],
 		ignoreDuringBuilds: true,
-	},
-	experimental: {
-		appDir: false,
 	},
 	async headers() {
 		const headers = [

@@ -6,8 +6,10 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"~/*": ["./*"]
-		}
+		},
+		"plugins": [{ "name": "next" }],
+		"strictNullChecks": true
 	},
-	"include": ["**/*.ts", "**/*.tsx", "*.config.mjs", "*.config.cjs"],
+	"include": ["**/*.ts", "**/*.tsx", "*.config.mjs", "*.config.cjs", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
 }
